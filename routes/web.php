@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Manager\Clientes\ClientesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect()->route('login');
 });
+
+Route::get(
+    '/clientes', 
+    [ClientesController::class, 'show'])->name('clientes.show');
 
 Route::middleware([
     'auth:sanctum',
