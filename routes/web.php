@@ -18,9 +18,31 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get(
-    '/clientes', 
-    [ClientesController::class, 'show'])->name('clientes.show');
+Route::prefix('/clientes')->group(function(){
+    Route::get('/', 
+        [ClientesController::class, 'show'])
+    ->name('clientes.show');
+
+    Route::get('/create', 
+        [ClientesController::class, 'create'])
+    ->name('clientes.create');
+
+    /*Route::post('/store', 
+        [ClientesController::class, 'store'])
+    ->name('clientes.store');
+
+    Route::get('{cliente}/edit', 
+        [ClientesController::class, 'edit'])
+    ->name('clientes.edit');
+
+    Route::put('{cliente}', 
+        [ClientesController::class, 'update'])
+    ->name('clientes.update');
+
+    Route::delete('/{cliente}', 
+        [ClientesController::class, 'destroy'])
+    ->name('clientes.destroy');*/
+});
 
 Route::middleware([
     'auth:sanctum',
