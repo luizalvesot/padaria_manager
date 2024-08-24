@@ -2,7 +2,7 @@
     <!-- linha dos botões -->
     <div class="row pt-2 pb-2 text-center">
         <div class="col">
-            <button class="btn btn-sm btn-dark px-3" type="button"><i class="bi bi-plus-lg"></i></button>
+            <a href="{{route('clientes.create')}}" class="btn btn-sm btn-dark px-3"><i class="bi bi-plus-lg"></i></a>
         </div>
     </div>
 
