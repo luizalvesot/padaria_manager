@@ -12,7 +12,8 @@ class Index extends Component
 
     public function render()
     {
-        $clientes = Cliente::all();
+        $clientes = Cliente::where('nome_cliente', '!=', null)
+                    ->paginate(1);
 
         return view('livewire.manager.clientes.index', compact('clientes'));
     }
