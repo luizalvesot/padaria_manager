@@ -27,6 +27,10 @@ Route::prefix('/clientes')->group(function(){
         [ClientesController::class, 'create'])
     ->name('clientes.create');
 
+    Route::get('/{id}', 
+        [ClientesController::class, 'showModal'])
+    ->name('clientes.showModal');
+
     /*Route::post('/store', 
         [ClientesController::class, 'store'])
     ->name('clientes.store');
