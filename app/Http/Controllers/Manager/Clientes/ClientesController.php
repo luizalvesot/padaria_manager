@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Manager\Clientes;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Manager\Clientes\Cliente;
 
 class ClientesController extends Controller
 {
@@ -20,5 +21,12 @@ class ClientesController extends Controller
     public function create()
     {
         return view('manager.clientes.create');
+    }
+
+    public function showModal($id)
+    {
+        $cliente = Cliente::findOrFail($id);
+
+        return view('livewire.manager.clientes.detalhes', compact('cliente'));
     }
 }
