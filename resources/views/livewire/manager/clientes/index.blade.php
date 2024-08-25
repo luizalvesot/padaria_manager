@@ -60,11 +60,14 @@
                         <td>{{ $cliente->cpf_cliente }}</td>
                         <td>{{ $cliente->telefone_celular_cliente }}</td>
                         <td>{{ $cliente->status_cliente }}</td>
-                        <td> - </td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#clienteModal" onclick="carregarCliente({{ $cliente->id }})">Ver</button>
+                        </td>
                     </tr> 
                 @endforeach
             </tbody>
         </table>
+        @include('livewire.manager.clientes._modal')
         <div class="pagination-sm text-dark">
             {{ $clientes->links() }}
         </div>
