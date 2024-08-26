@@ -301,8 +301,10 @@
         <!-- observacoes sobre o cliente, se houver -->
         <label for="observacoes" class="text-dark"><strong>Observações</strong></label>
         <div class="form-floating">
-            <textarea class="form-control rounded @error('observacoes') is-invalid @enderror" value="{{ $cliente->observacoes ?? old('observacoes') }}"
-                id="observacoes" name="observacoes" style="height: 110px; border-color:rgb(132, 132, 132)"></textarea>
+            <textarea class="form-control rounded @error('observacoes') is-invalid @enderror"
+                id="observacoes" name="observacoes" style="height: 110px; border-color:rgb(132, 132, 132)">
+                {{ $cliente->observacoes ?? old('observacoes') }}
+            </textarea>
         </div>
     </div>
 </div>
