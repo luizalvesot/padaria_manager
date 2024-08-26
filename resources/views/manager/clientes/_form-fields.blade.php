@@ -6,7 +6,7 @@
             <div class="form-group">
                 <label for="nome_cliente" class="text-dark"><strong>Nome </strong><strong class="text-danger"> *</strong></label>
                 <input type="text" class="form-control rounded py-1 @error('nome_cliente') is-invalid @enderror" 
-                    id="nome_cliente" name="nome_cliente" placeholder="Nome do cliente" value="{{ $cliente->nome_cliente ?? old('nome_cliente') }}">
+                    id="nome_cliente" name="nome_cliente" value="{{ $cliente->nome_cliente ?? old('nome_cliente') }}">
                 
                 @error('nome_cliente')
                     <span class="invalid-feedback" role="alert">
@@ -36,9 +36,19 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label for="tipo_cliente" class="text-dark"><strong>Tipo de cliente </strong><strong class="text-danger"> *</strong></label>
-                <select class="form-select rounded py-1" value="{{ $cliente->tipo_cliente ?? old('tipo_cliente') }}">
-                    <option value="PF">PF</option>
-                    <option value="CNPJ">CNPJ</option>
+                <select class="form-select rounded py-1 @error('tipo_cliente') is-invalid @enderror" id="tipo_cliente" name="tipo_cliente">
+                    @if(isset($cliente))
+                        @if($cliente->tipo_cliente == "PF")
+                            <option value="PF">PF</option>
+                            <option value="CNPJ">CNPJ</option>
+                        @else
+                            <option value="CNPJ">CNPJ</option>
+                            <option value="PF">PF</option>
+                        @endif
+                    @else
+                        <option value="PF">PF</option>
+                        <option value="CNPJ">CNPJ</option>
+                    @endif
                 </select>
             </div>
         </div>
@@ -47,7 +57,7 @@
             <div class="form-group">
                 <label for="cpf_cliente" class="text-dark"><strong>CPF</strong></label>
                 <input type="text" class="form-control rounded py-1 @error('cpf_cliente') is-invalid @enderror" 
-                    id="cpf_cliente" name="cpf_cliente" placeholder="CPF" value="{{ $cliente->cpf_cliente ?? old('cpf_cliente') }}">
+                    id="cpf_cliente" name="cpf_cliente" value="{{ $cliente->cpf_cliente ?? old('cpf_cliente') }}">
                 
                 @error('cpf_cliente')
                     <span class="invalid-feedback" role="alert">
@@ -61,7 +71,7 @@
             <div class="form-group">
                 <label for="rg_cliente" class="text-dark"><strong>RG</strong></label>
                 <input type="text" class="form-control rounded py-1 @error('rg_cliente') is-invalid @enderror" 
-                    id="rg_cliente" name="rg_cliente" placeholder="RG" value="{{ $cliente->rg_cliente ?? old('rg_cliente') }}">
+                    id="rg_cliente" name="rg_cliente" value="{{ $cliente->rg_cliente ?? old('rg_cliente') }}">
                 
                 @error('rg_cliente')
                     <span class="invalid-feedback" role="alert">
@@ -78,7 +88,7 @@
             <div class="form-group">
                 <label for="cnpj_cliente" class="text-dark"><strong>CNPJ</strong></label>
                 <input type="text" class="form-control rounded py-1 @error('cnpj_cliente') is-invalid @enderror" 
-                    id="cnpj_cliente" name="cnpj_cliente" placeholder="CNPJ" value="{{ $cliente->cnpj_cliente ?? old('cnpj_cliente') }}">
+                    id="cnpj_cliente" name="cnpj_cliente" value="{{ $cliente->cnpj_cliente ?? old('cnpj_cliente') }}">
                 
                 @error('cnpj_cliente')
                     <span class="invalid-feedback" role="alert">
@@ -92,7 +102,7 @@
             <div class="form-group">
                 <label for="nome_fantasia_cliente" class="text-dark"><strong>Nome fantasia</strong></label>
                 <input type="text" class="form-control rounded py-1 @error('nome_fantasia_cliente') is-invalid @enderror" 
-                    id="nome_fantasia_cliente" name="nome_fantasia_cliente" placeholder="Nome fantasia do cliente" value="{{ $cliente->nome_fantasia_cliente ?? old('nome_fantasia_cliente') }}">
+                    id="nome_fantasia_cliente" name="nome_fantasia_cliente" value="{{ $cliente->nome_fantasia_cliente ?? old('nome_fantasia_cliente') }}">
                 
                 @error('nome_fantasia_cliente')
                     <span class="invalid-feedback" role="alert">
@@ -108,9 +118,19 @@
         <div class="col-md-5">
             <div class="form-group">
                 <label for="status_cliente" class="text-dark"><strong>Status </strong><strong class="text-danger"> *</strong></label>
-                <select class="form-select rounded py-1" value="{{ $cliente->status_cliente ?? old('status_cliente') }}">
-                    <option value=1>Ativo</option>
-                    <option class="bg-danger text-white" value=0>Inativo</option>
+                <select class="form-select rounded py-1 @error('status_cliente') is-invalid @enderror" id="status_cliente" name="status_cliente">
+                    @if(isset($cliente))
+                        @if($cliente->status_cliente == 1)
+                            <option value=1>Ativo</option>
+                            <option value=0>Inativo</option>
+                        @else 
+                            <option value=0>Inativo</option>
+                            <option value=1>Ativo</option>
+                        @endif
+                    @else
+                        <option value=1>Ativo</option>
+                        <option value=0>Inativo</option>
+                    @endif    
                 </select>
             </div>
         </div>
@@ -119,7 +139,7 @@
             <div class="form-group">
                 <label for="telefone_celular_cliente" class="text-dark"><strong>Telefone celular </strong><strong class="text-danger"> *</strong></label>
                 <input type="text" class="form-control rounded py-1 @error('telefone_celular_cliente') is-invalid @enderror" 
-                    id="telefone_celular_cliente" name="telefone_celular_cliente" placeholder="Celular" value="{{ $cliente->telefone_celular_cliente ?? old('telefone_celular_cliente') }}">
+                    id="telefone_celular_cliente" name="telefone_celular_cliente" value="{{ $cliente->telefone_celular_cliente ?? old('telefone_celular_cliente') }}">
                 
                 @error('telefone_celular_cliente')
                     <span class="invalid-feedback" role="alert">
@@ -136,7 +156,7 @@
             <div class="form-group">
                 <label for="telefone_fixo_cliente" class="text-dark"><strong>Telefone fixo</strong></label>
                 <input type="text" class="form-control rounded py-1 @error('telefone_fixo_cliente') is-invalid @enderror" 
-                    id="telefone_fixo_cliente" name="telefone_fixo_cliente" placeholder="Telefone fixo" value="{{ $cliente->telefone_fixo_cliente ?? old('telefone_fixo_cliente') }}">
+                    id="telefone_fixo_cliente" name="telefone_fixo_cliente" value="{{ $cliente->telefone_fixo_cliente ?? old('telefone_fixo_cliente') }}">
                 
                 @error('telefone_fixo_cliente')
                     <span class="invalid-feedback" role="alert">
@@ -150,7 +170,7 @@
             <div class="form-group">
                 <label for="email_cliente" class="text-dark"><strong>E-mail</strong></label>
                 <input type="text" class="form-control rounded py-1 @error('email_cliente') is-invalid @enderror" 
-                    id="email_cliente" name="email_cliente" placeholder="E-mail" value="{{ $cliente->email_cliente ?? old('email_cliente') }}">
+                    id="email_cliente" name="email_cliente" value="{{ $cliente->email_cliente ?? old('email_cliente') }}">
                 
                 @error('telefone_celular_cliente')
                     <span class="invalid-feedback" role="alert">
@@ -170,7 +190,7 @@
             <div class="form-group">
                 <label for="cep_cliente" class="text-dark"><strong>CEP</strong></label>
                 <input type="text" class="form-control rounded py-1 @error('cep_cliente') is-invalid @enderror" 
-                    id="cep_cliente" name="cep_cliente" placeholder="CEP" value="{{ $cliente->cep_cliente ?? old('cep_cliente') }}">
+                    id="cep_cliente" name="cep_cliente" value="{{ $cliente->cep_cliente ?? old('cep_cliente') }}">
                 
                 @error('cep_cliente')
                     <span class="invalid-feedback" role="alert">
@@ -184,7 +204,7 @@
             <div class="form-group">
                 <label for="cidade_cliente" class="text-dark"><strong>Cidade</strong></label>
                 <input type="text" class="form-control rounded py-1 @error('cidade_cliente') is-invalid @enderror" 
-                    id="cidade_cliente" name="cidade_cliente" placeholder="Cidade" value="{{ $cliente->cidade_cliente ?? old('cidade_cliente') }}">
+                    id="cidade_cliente" name="cidade_cliente" value="{{ $cliente->cidade_cliente ?? old('cidade_cliente') }}">
                 
                 @error('cidade_cliente')
                     <span class="invalid-feedback" role="alert">
@@ -197,9 +217,19 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label for="estado_cliente" class="text-dark"><strong>UF</strong></label>
-                <select class="form-select rounded py-1" value="{{ $cliente->estado_cliente ?? old('estado_cliente') }}">
-                    <option value="MG">MG</option>
-                    <option value="SP">SP</option>
+                <select class="form-select rounded py-1  @error('estado_cliente') is-invalid @enderror" id="estado_cliente" name="estado_cliente">
+                    @if(isset($cliente))
+                        @if($cliente->estado_cliente == "MG")
+                            <option value="MG">MG</option>
+                            <option value="SP">SP</option>
+                        @else
+                            <option value="SP">SP</option> 
+                            <option value="MG">MG</option> 
+                        @endif
+                    @else
+                        <option value="MG">MG</option>
+                        <option value="SP">SP</option>
+                    @endif
                 </select>
             </div>
         </div>
@@ -211,7 +241,7 @@
             <div class="form-group">
                 <label for="bairro_cliente" class="text-dark"><strong>Bairro</strong></label>
                 <input type="text" class="form-control rounded py-1 @error('bairro_cliente') is-invalid @enderror" 
-                    id="bairro_cliente" name="bairro_cliente" placeholder="Bairro" value="{{ $cliente->bairro_cliente ?? old('bairro_cliente') }}">
+                    id="bairro_cliente" name="bairro_cliente" value="{{ $cliente->bairro_cliente ?? old('bairro_cliente') }}">
                 
                 @error('bairro_cliente')
                     <span class="invalid-feedback" role="alert">
@@ -225,7 +255,7 @@
             <div class="form-group">
                 <label for="logradouro_cliente" class="text-dark"><strong>Logradouro</strong></label>
                 <input type="text" class="form-control rounded py-1 @error('logradouro_cliente') is-invalid @enderror" 
-                    id="logradouro_cliente" name="logradouro_cliente" placeholder="Logradouro" value="{{ $cliente->logradouro_cliente ?? old('logradouro_cliente') }}">
+                    id="logradouro_cliente" name="logradouro_cliente" value="{{ $cliente->logradouro_cliente ?? old('logradouro_cliente') }}">
                 
                 @error('logradouro_cliente')
                     <span class="invalid-feedback" role="alert">
@@ -242,7 +272,7 @@
             <div class="form-group">
                 <label for="numero_cliente" class="text-dark"><strong>Número</strong></label>
                 <input type="text" class="form-control rounded py-1 @error('numero_cliente') is-invalid @enderror" 
-                    id="numero_cliente" name="numero_cliente" placeholder="Número" value="{{ $cliente->numero_cliente ?? old('numero_cliente') }}">
+                    id="numero_cliente" name="numero_cliente" value="{{ $cliente->numero_cliente ?? old('numero_cliente') }}">
                 
                 @error('numero_cliente')
                     <span class="invalid-feedback" role="alert">
@@ -256,7 +286,7 @@
             <div class="form-group">
                 <label for="referencia_cliente" class="text-dark"><strong>Referência</strong></label>
                 <input type="text" class="form-control rounded py-1 @error('referencia_cliente') is-invalid @enderror" 
-                    id="referencia_cliente" name="referencia_cliente" placeholder="Referência" value="{{ $cliente->referencia_cliente ?? old('referencia_cliente') }}">
+                    id="referencia_cliente" name="referencia_cliente" value="{{ $cliente->referencia_cliente ?? old('referencia_cliente') }}">
                 
                 @error('referencia_cliente')
                     <span class="invalid-feedback" role="alert">
