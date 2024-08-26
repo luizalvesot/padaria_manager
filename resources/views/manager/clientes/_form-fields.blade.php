@@ -56,7 +56,7 @@
         <div class="col-md-5">
             <div class="form-group">
                 <label for="cpf_cliente" class="text-dark"><strong>CPF</strong></label>
-                <input type="text" class="form-control rounded py-1 @error('cpf_cliente') is-invalid @enderror" 
+                <input type="text" class="form-control cpf rounded py-1 @error('cpf_cliente') is-invalid @enderror" 
                     id="cpf_cliente" name="cpf_cliente" value="{{ $cliente->cpf_cliente ?? old('cpf_cliente') }}">
                 
                 @error('cpf_cliente')
@@ -70,7 +70,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="rg_cliente" class="text-dark"><strong>RG</strong></label>
-                <input type="text" class="form-control rounded py-1 @error('rg_cliente') is-invalid @enderror" 
+                <input type="text" class="form-control rg rounded py-1 @error('rg_cliente') is-invalid @enderror" 
                     id="rg_cliente" name="rg_cliente" value="{{ $cliente->rg_cliente ?? old('rg_cliente') }}">
                 
                 @error('rg_cliente')
@@ -87,7 +87,7 @@
         <div class="col-md-5">
             <div class="form-group">
                 <label for="cnpj_cliente" class="text-dark"><strong>CNPJ</strong></label>
-                <input type="text" class="form-control rounded py-1 @error('cnpj_cliente') is-invalid @enderror" 
+                <input type="text" class="form-control cnpj rounded py-1 @error('cnpj_cliente') is-invalid @enderror" 
                     id="cnpj_cliente" name="cnpj_cliente" value="{{ $cliente->cnpj_cliente ?? old('cnpj_cliente') }}">
                 
                 @error('cnpj_cliente')
@@ -138,7 +138,7 @@
         <div class="col-md-7">
             <div class="form-group">
                 <label for="telefone_celular_cliente" class="text-dark"><strong>Telefone celular </strong><strong class="text-danger"> *</strong></label>
-                <input type="text" class="form-control rounded py-1 @error('telefone_celular_cliente') is-invalid @enderror" 
+                <input type="text" class="form-control celular rounded py-1 @error('telefone_celular_cliente') is-invalid @enderror" 
                     id="telefone_celular_cliente" name="telefone_celular_cliente" value="{{ $cliente->telefone_celular_cliente ?? old('telefone_celular_cliente') }}">
                 
                 @error('telefone_celular_cliente')
@@ -155,7 +155,7 @@
         <div class="col-md-5">
             <div class="form-group">
                 <label for="telefone_fixo_cliente" class="text-dark"><strong>Telefone fixo</strong></label>
-                <input type="text" class="form-control rounded py-1 @error('telefone_fixo_cliente') is-invalid @enderror" 
+                <input type="text" class="form-control telefone rounded py-1 @error('telefone_fixo_cliente') is-invalid @enderror" 
                     id="telefone_fixo_cliente" name="telefone_fixo_cliente" value="{{ $cliente->telefone_fixo_cliente ?? old('telefone_fixo_cliente') }}">
                 
                 @error('telefone_fixo_cliente')
@@ -189,7 +189,7 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label for="cep_cliente" class="text-dark"><strong>CEP</strong></label>
-                <input type="text" class="form-control rounded py-1 @error('cep_cliente') is-invalid @enderror" 
+                <input type="text" class="form-control cep rounded py-1 @error('cep_cliente') is-invalid @enderror" 
                     id="cep_cliente" name="cep_cliente" value="{{ $cliente->cep_cliente ?? old('cep_cliente') }}">
                 
                 @error('cep_cliente')
