@@ -38,7 +38,7 @@
 
     <!-- tabela de clientes -->
     <div class="row table-responsive p-2 bg-white shadow rounded">
-        <table class="table table-hover table-striped table-bordered caption-top">
+        <table class="table table-hover table-striped table-bordered caption-top text-center">
             <caption>Lista de clientes</caption>
             <thead>
                 <tr>
@@ -62,6 +62,8 @@
                         <td>{{ $cliente->status_cliente }}</td>
                         <td>
                             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#clienteModal" onclick="carregarCliente({{ $cliente->id }})">Ver</button>
+                            <a class="btn btn-dark btn-sm" href="{{-- route('clients.edit', $client) --}}">Editar</a>
+                            <a class="btn btn-danger btn-sm" href="{{-- route('clients.edit', $client) --}}">Excluir</a>
                         </td>
                     </tr> 
                 @endforeach
