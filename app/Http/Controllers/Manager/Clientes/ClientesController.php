@@ -32,6 +32,6 @@ class ClientesController extends Controller
 
     public function edit(Cliente $cliente)
     {
-        return view('manager.clientes.edit');
+        return view('manager.clientes.edit', compact('cliente'));
     }
 }
