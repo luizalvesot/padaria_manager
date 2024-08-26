@@ -29,4 +29,9 @@ class ClientesController extends Controller
 
         return view('livewire.manager.clientes.detalhes', compact('cliente'));
     }
+
+    public function edit(Cliente $cliente)
+    {
+        return view('manager.clientes.edit');
+    }
 }
