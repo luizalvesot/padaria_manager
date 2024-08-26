@@ -12,7 +12,7 @@
         
         <form method="POST" action="{{-- route('clientes.store') --}}">
             @csrf
-            <div class="row bg-white p-4 shadow-lg mt-2 mb-4 rounded">
+            <div class="row bg-light p-4 shadow-lg mt-2 mb-4 rounded">
 
                 @include('manager.clientes._form-fields')
 
