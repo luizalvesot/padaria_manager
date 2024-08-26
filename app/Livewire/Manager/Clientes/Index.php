@@ -13,7 +13,7 @@ class Index extends Component
     public function render()
     {
         $clientes = Cliente::where('nome_cliente', '!=', null)
-                    ->paginate(1);
+                    ->paginate(10);
 
         return view('livewire.manager.clientes.index', compact('clientes'));
     }
