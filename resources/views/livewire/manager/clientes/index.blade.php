@@ -62,7 +62,7 @@
                         <td>{{ $cliente->status_cliente }}</td>
                         <td>
                             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#clienteModal" onclick="carregarCliente({{ $cliente->id }})">Ver</button>
-                            <a class="btn btn-dark btn-sm" href="{{ route('clients.edit', $cliente) }}">Editar</a>
+                            <a class="btn btn-dark btn-sm" href="{{ route('clientes.edit', $cliente) }}">Editar</a>
                             <a class="btn btn-danger btn-sm" href="{{-- route('clients.edit', $client) --}}">Excluir</a>
                         </td>
                     </tr> 
