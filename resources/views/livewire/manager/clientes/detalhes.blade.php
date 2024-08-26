@@ -93,7 +93,7 @@
             </table>
             <div class="row">
                 <div class="col-md-4">
-                    <button class="btn btn-sm btn-success px-auto">Editar informações</button>
+                    <a href="{{ route('clientes.edit', $cliente) }}" class="btn btn-sm btn-success px-auto">Editar informações</a>
                 </div>
             </div>
         </div>
