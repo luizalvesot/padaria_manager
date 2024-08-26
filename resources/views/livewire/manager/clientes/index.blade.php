@@ -57,8 +57,8 @@
                         <td>{{ $cliente->id }}</td>
                         <td>{{ $cliente->nome_cliente }}</td>
                         <td>{{ $cliente->tipo_cliente }}</td>
-                        <td>{{ $cliente->cpf_cliente }}</td>
-                        <td>{{ $cliente->telefone_celular_cliente }}</td>
+                        <td class="cpf">{{ $cliente->cpf_cliente }}</td>
+                        <td class="celular">{{ $cliente->telefone_celular_cliente }}</td>
                         <td>{{ $cliente->status_cliente }}</td>
                         <td>
                             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#clienteModal" onclick="carregarCliente({{ $cliente->id }})">Ver</button>
