@@ -16,7 +16,7 @@ class Cliente extends Model
         'nome_cliente',
         'nascimento_cliente',
         'tipo_cliente',
-        'cpf_liente',
+        'cpf_cliente',
         'rg_cliente',
         'cnpj_cliente',
         'nome_fantasia_cliente',
