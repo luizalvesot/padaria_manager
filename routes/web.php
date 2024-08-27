@@ -31,9 +31,9 @@ Route::prefix('/clientes')->group(function(){
         [ClientesController::class, 'showModal'])
     ->name('clientes.showModal');
 
-    /*Route::post('/store', 
+    Route::post('/store', 
         [ClientesController::class, 'store'])
-    ->name('clientes.store');*/
+    ->name('clientes.store');
 
     Route::get('{cliente}/edit', 
         [ClientesController::class, 'edit'])
@@ -41,11 +41,11 @@ Route::prefix('/clientes')->group(function(){
 
     /*Route::put('{cliente}', 
         [ClientesController::class, 'update'])
-    ->name('clientes.update');
+    ->name('clientes.update');*/
 
     Route::delete('/{cliente}', 
         [ClientesController::class, 'destroy'])
-    ->name('clientes.destroy');*/
+    ->name('clientes.destroy');
 });
 
 Route::middleware([
