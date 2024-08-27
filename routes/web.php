@@ -39,9 +39,9 @@ Route::prefix('/clientes')->group(function(){
         [ClientesController::class, 'edit'])
     ->name('clientes.edit');
 
-    /*Route::put('{cliente}', 
+    Route::put('{cliente}', 
         [ClientesController::class, 'update'])
-    ->name('clientes.update');*/
+    ->name('clientes.update');
 
     Route::delete('/{cliente}', 
         [ClientesController::class, 'destroy'])
