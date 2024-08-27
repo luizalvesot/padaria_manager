@@ -158,7 +158,7 @@ class ClientesController extends Controller
             'info',
             'Alteração de Cliente!',
             'As informações do cliente foram atualizadas com sucesso em nosso sistema!',
-            'clients.show'
+            'clientes.show'
         );
     }
 
