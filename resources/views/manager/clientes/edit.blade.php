@@ -10,7 +10,7 @@
             </nav>
         </div><hr>
         
-        <form method="POST" action="{{ route('clientes.update', $cliente->id) }}">
+        <form method="POST" action="{{ route('clientes.update', $cliente) }}">
             @csrf
             <div class="row bg-light p-4 shadow-lg mt-2 mb-4 rounded">
                 @method('PUT')
