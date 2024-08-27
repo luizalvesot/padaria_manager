@@ -2,7 +2,7 @@
     <!-- linha dos botões -->
     <div class="row pt-2 pb-2 text-center">
         <div class="col">
-            <a href="{{route('clientes.create')}}" class="btn btn-sm btn-dark px-3"><i class="bi bi-plus-lg"></i></a>
+            <a href="{{route('clientes.create')}}" class="btn btn-sm btn-success px-3"><i class="bi bi-plus-lg"></i></a>
         </div>
     </div>
 
@@ -32,7 +32,8 @@
             </select>
         </div>
         <div class="col-md-2">
-            <button class="btn btn-primary btn-sm px-5 mt-4">Pesquisar</button>
+            <button class="btn btn-success btn-sm mt-4 px-4">Pesquisar</button>
+            <button class="btn btn-secondary btn-sm px-auto mt-4"><i class="bi bi-printer"></i></button>
         </div>
     </form>
 
@@ -48,7 +49,9 @@
                     <th scope="col">CPF/CNPJ</th>
                     <th scope="col">Telefone</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Ações</th>
+                    <th scope="col">Ver</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Deletar</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,9 +64,19 @@
                         <td class="celular">{{ $cliente->telefone_celular_cliente }}</td>
                         <td>{{ $cliente->status_cliente }}</td>
                         <td>
-                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#clienteModal" onclick="carregarCliente({{ $cliente->id }})">Ver</button>
-                            <a class="btn btn-dark btn-sm" href="{{ route('clientes.edit', $cliente) }}">Editar</a>
-                            <a class="btn btn-danger btn-sm" href="{{-- route('clients.edit', $client) --}}">Excluir</a>
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#clienteModal" onclick="carregarCliente({{ $cliente->id }})">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <a class="btn btn-secondary btn-sm" href="{{ route('clientes.edit', $cliente) }}">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger btn-sm" href="{{-- route('clients.edit', $client) --}}">
+                                <i class="bi bi-trash"></i>
+                            </a>
                         </td>
                     </tr> 
                 @endforeach
