@@ -3,22 +3,22 @@
     <form class="row pt-2 pb-3 my-2 bg-white shadow rounded">
         <div class="col-md-3">
             <label class="text-dark"><strong>Nome</strong></label>
-            <input type="text" placeholder="Nome" 
+            <input type="text" placeholder="Nome" wire:model.defer="nome_cliente" id="nome_cliente"
                     class="form-control border rounded py-1 px-2 shadow-sm">
         </div>
         <div class="col-md-3">
             <label class="text-dark"><strong>Cidade</strong></label>
-            <input type="text" placeholder="Cidade" 
+            <input type="text" placeholder="Cidade" wire:model.defer="cidade_cliente" id="cidade_cliente"
                     class="form-control border rounded py-1 px-2 shadow-sm">
         </div>
         <div class="col-md-2">
             <label class="text-dark"><strong>Telefone</strong></label>
-            <input type="text" placeholder="Telefone" 
+            <input type="text" placeholder="Telefone" wire:model.defer="telefone_celular_cliente" id="telefone_celular_cliente"
                     class="form-control border rounded py-1 px-2 shadow-sm">
         </div>
         <div class="col-md-2">
             <label class="text-dark"><strong>Status</strong></label>
-            <select class="form-select border rounded py-1 px-3 shadow-sm">
+            <select class="form-select border rounded py-1 px-3 shadow-sm" wire:model.defer="status_cliente" id="status_cliente">
                 <option value="">Todos</option>
                 <option value=1>Ativo</option>
                 <option value=0>Inativo</option>
