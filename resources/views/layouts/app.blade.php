@@ -41,6 +41,12 @@
                 {{ $slot }}
             </main>
         </div>
+        <!-- Footer -->
+        <footer class="pt-4 pb-2 bg-gray-100">
+            <div>
+                <p class="text-center text-secondary fw-light">© {{ date('Y') }} Copyright Luiz Alves.</p>
+            </div>
+        </footer>
         @stack('scripts')
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         @include('layouts._scripts')
