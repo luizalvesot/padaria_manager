@@ -10,7 +10,7 @@
             </nav>
         </div><hr>
         
-        <form method="POST" action="{{-- route('clientes.store') --}}">
+        <form method="POST" action="{{ route('clientes.store') }}">
             @csrf
             <div class="row bg-light p-4 shadow-lg mt-2 mb-4 rounded">
 
@@ -23,7 +23,6 @@
                     </div>
                 </div>
             </div>
-        </form>
-
+        </form> 
     </div>
 </x-app-layout>
