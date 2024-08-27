@@ -1,12 +1,20 @@
 <x-app-layout>
     <div class="container">
         <div class="row pt-3">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Clientes</li>
-                </ol>
-            </nav>
+            <div class="col-md-9">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Clientes</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-md-3">
+                <a href="{{route('clientes.create')}}" title="Cadastrar cliente" class="btn btn-sm btn-success px-3">
+                    Cadastrar
+                    <i class="bi bi-plus-lg"></i>
+                </a>
+            </div>
         </div><hr>
         <livewire:manager.clientes/>
     </div>

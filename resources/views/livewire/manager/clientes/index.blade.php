@@ -1,11 +1,4 @@
 <div>
-    <!-- linha dos botões -->
-    <div class="row pt-2 pb-2 text-center">
-        <div class="col">
-            <a href="{{route('clientes.create')}}" title="Cadastrar cliente" class="btn btn-sm btn-success px-3"><i class="bi bi-plus-lg"></i></a>
-        </div>
-    </div>
-
     <!-- formulario -->
     <form class="row pt-2 pb-3 my-2 bg-white shadow rounded">
         <div class="col-md-3">
@@ -60,7 +53,11 @@
                         <td>{{ $cliente->id }}</td>
                         <td>{{ $cliente->nome_cliente }}</td>
                         <td>{{ $cliente->tipo_cliente }}</td>
-                        <td class="cpf">{{ $cliente->cpf_cliente ?? ' - '}}</td>
+                        @if($cliente->cpf_cliente != null)
+                            <td class="cpf">{{ $cliente->cpf_cliente }}</td>
+                        @else
+                            <td> - </td>
+                        @endif
                         <td class="celular">{{ $cliente->telefone_celular_cliente }}</td>
                         @if($cliente->status_cliente)
                             <td class="">Ativo</td>
