@@ -60,7 +60,7 @@
                         <td>{{ $cliente->id }}</td>
                         <td>{{ $cliente->nome_cliente }}</td>
                         <td>{{ $cliente->tipo_cliente }}</td>
-                        <td class="cpf">{{ $cliente->cpf_cliente }}</td>
+                        <td class="cpf">{{ $cliente->cpf_cliente ?? ' - '}}</td>
                         <td class="celular">{{ $cliente->telefone_celular_cliente }}</td>
                         @if($cliente->status_cliente)
                             <td class="">Ativo</td>
@@ -78,7 +78,12 @@
                             </a>
                         </td>
                         <td>
-                            <a class="btn btn-danger btn-sm" title="Deletar cliente" href="{{-- route('clients.edit', $client) --}}">
+                            <a class="btn btn-danger btn-sm" title="Deletar cliente"  
+                                data-token="{{ csrf_token() }}" 
+                                data-route="{{ route('clientes.destroy', $cliente) }}"
+                                data-redirect="{{ route('clientes.show', $cliente) }}"
+                                id="delete{{ $cliente->id }}"
+                                onclick="deleteData({{ $cliente->id }})">
                                 <i class="bi bi-trash"></i>
                             </a>
                         </td>
@@ -86,7 +91,9 @@
                 @endforeach
             </tbody>
         </table>
+        
         @include('livewire.manager.clientes._modal')
+
         <div class="pagination-sm text-dark">
             {{ $clientes->links() }}
         </div>
