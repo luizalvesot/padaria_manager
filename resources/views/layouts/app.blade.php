@@ -41,7 +41,8 @@
                 {{ $slot }}
             </main>
         </div>
-
+        @stack('scripts')
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         @include('layouts._scripts')
         @livewireScripts
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
