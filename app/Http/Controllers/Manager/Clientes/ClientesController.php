@@ -64,19 +64,26 @@ class ClientesController extends Controller
             'observacoes' => 'nullable',
         ]);
 
+        $cpf_formatado = str_replace(['.', '-'], '', $request->cpf_cliente);
+        $rg_formatado = str_replace(['.', '-'], '', $request->rg_cliente);
+        $cnpj_formatado = str_replace(['.', '-', '/'], '', $request->cnpj_cliente);
+        $telefone_celular_formatado = str_replace(['(', ')', '-', ' '], '', $request->telefone_celular_cliente);
+        $telefone_formatado = str_replace(['(', ')', '-', ' '], '', $request->telefone_fixo_cliente);
+        $cep_formatado = str_replace(['.', '-', '/'], '', $request->cep_cliente);
+
         Cliente::create([
             'nome_cliente'              => $request->nome_cliente,
             'nascimento_cliente'        => $request->nascimento_cliente,
             'tipo_cliente'              => $request->tipo_cliente,
-            'cpf_cliente'               => $request->cpf_cliente,
-            'rg_cliente'                => $request->rg_cliente,
-            'cnpj_cliente'              => $request->cnpj_cliente,
+            'cpf_cliente'               => $cpf_formatado,
+            'rg_cliente'                => $rg_formatado,
+            'cnpj_cliente'              => $cnpj_formatado,
             'nome_fantasia_cliente'     => $request->nome_fantasia_cliente,
             'status_cliente'            => $request->status_cliente,
-            'telefone_celular_cliente'  => $request->telefone_celular_cliente,
-            'telefone_fixo_cliente'     => $request->telefone_fixo_cliente,
+            'telefone_celular_cliente'  => $telefone_celular_formatado,
+            'telefone_fixo_cliente'     => $telefone_formatado,
             'email_cliente'             => $request->email_cliente,
-            'cep_cliente'               => $request->cep_cliente,
+            'cep_cliente'               => $cep_formatado,
             'cidade_cliente'            => $request->cidade_cliente,
             'estado_cliente'            => $request->estado_cliente,
             'bairro_cliente'            => $request->bairro_cliente,
@@ -133,19 +140,26 @@ class ClientesController extends Controller
             'observacoes' => 'nullable',
         ]);
 
+        $cpf_formatado = str_replace(['.', '-'], '', $request->cpf_cliente);
+        $rg_formatado = str_replace(['.', '-'], '', $request->rg_cliente);
+        $cnpj_formatado = str_replace(['.', '-', '/'], '', $request->cnpj_cliente);
+        $telefone_celular_formatado = str_replace(['(', ')', '-', ' '], '', $request->telefone_celular_cliente);
+        $telefone_formatado = str_replace(['(', ')', '-', ' '], '', $request->telefone_fixo_cliente);
+        $cep_formatado = str_replace(['.', '-', '/'], '', $request->cep_cliente);
+
         $cliente->update([
             'nome_cliente'              => $request->nome_cliente,
             'nascimento_cliente'        => $request->nascimento_cliente,
             'tipo_cliente'              => $request->tipo_cliente,
-            'cpf_cliente'               => $request->cpf_cliente,
-            'rg_cliente'                => $request->rg_cliente,
-            'cnpj_cliente'              => $request->cnpj_cliente,
+            'cpf_cliente'               => $cpf_formatado,
+            'rg_cliente'                => $rg_formatado,
+            'cnpj_cliente'              => $cnpj_formatado,
             'nome_fantasia_cliente'     => $request->nome_fantasia_cliente,
             'status_cliente'            => $request->status_cliente,
-            'telefone_celular_cliente'  => $request->telefone_celular_cliente,
-            'telefone_fixo_cliente'     => $request->telefone_fixo_cliente,
+            'telefone_celular_cliente'  => $telefone_celular_formatado,
+            'telefone_fixo_cliente'     => $telefone_formatado,
             'email_cliente'             => $request->email_cliente,
-            'cep_cliente'               => $request->cep_cliente,
+            'cep_cliente'               => $cep_formatado,
             'cidade_cliente'            => $request->cidade_cliente,
             'estado_cliente'            => $request->estado_cliente,
             'bairro_cliente'            => $request->bairro_cliente,
