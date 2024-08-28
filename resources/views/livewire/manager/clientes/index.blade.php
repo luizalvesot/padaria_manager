@@ -26,7 +26,9 @@
         </div>
         <div class="col-md-2">
             <button type="button" class="btn btn-success btn-sm mt-4 px-4" wire:click="search_cliente">Pesquisar</button>
-            <button title="Imprimir lista de clientes" class="btn btn-secondary btn-sm px-auto mt-4"><i class="bi bi-printer"></i></button>
+            <a href="{{ route('clientes.pdf') }}" target="_blank" title="Imprimir lista de clientes" class="btn btn-secondary btn-sm px-auto mt-4">
+                <i class="bi bi-printer"></i>
+            </a>
         </div>
     </form>
 

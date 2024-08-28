@@ -27,10 +27,6 @@ Route::prefix('/clientes')->group(function(){
         [ClientesController::class, 'create'])
     ->name('clientes.create');
 
-    Route::get('/{id}', 
-        [ClientesController::class, 'showModal'])
-    ->name('clientes.showModal');
-
     Route::post('/store', 
         [ClientesController::class, 'store'])
     ->name('clientes.store');
@@ -46,7 +42,15 @@ Route::prefix('/clientes')->group(function(){
     Route::delete('/{cliente}', 
         [ClientesController::class, 'destroy'])
     ->name('clientes.destroy');
+
+    Route::get('/{id}', 
+        [ClientesController::class, 'showModal'])
+    ->name('clientes.showModal');
 });
+
+Route::get('pdf',
+    [ClientesController::class, 'geraPdf'])
+->name('clientes.pdf');
 
 Route::middleware([
     'auth:sanctum',

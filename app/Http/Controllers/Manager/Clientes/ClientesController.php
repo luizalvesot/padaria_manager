@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Manager\Clientes\Cliente;
 use App\Helpers\Swal;
+use Barryvdh\DomPDF\Facade\Pdf AS PDF;
 
 class ClientesController extends Controller
 {
@@ -162,11 +163,29 @@ class ClientesController extends Controller
         );
     }
 
+    /**
+     * Route: clientes/{id}/
+     * Name: clients.showModal
+     * Method: GET
+     **/
     public function showModal($id)
     {
         $cliente = Cliente::findOrFail($id);
 
         return view('livewire.manager.clientes.detalhes', compact('cliente'));
+    }
+
+    /**
+     * Route: clientes/
+     * Name: clients.showModal
+     * Method: GET
+     **/
+    public function geraPdf()
+    {
+        $cliente = Cliente::all();
+        $pdf = PDF::loadView('manager.clientes.pdf', compact('cliente'));
+
+        return $pdf->setPaper('a4', 'landscape')->stream('Clientes_Cadastrados.pdf');
     }
 
     /**
