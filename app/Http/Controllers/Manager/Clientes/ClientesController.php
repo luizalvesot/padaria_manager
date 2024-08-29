@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Manager\Clientes\Cliente;
 use App\Helpers\Swal;
+use App\Helpers\Formatter;
 use Barryvdh\DomPDF\Facade\Pdf AS PDF;
 
 class ClientesController extends Controller
@@ -64,26 +65,21 @@ class ClientesController extends Controller
             'observacoes' => 'nullable',
         ]);
 
-        $cpf_formatado = str_replace(['.', '-'], '', $request->cpf_cliente);
-        $rg_formatado = str_replace(['.', '-'], '', $request->rg_cliente);
-        $cnpj_formatado = str_replace(['.', '-', '/'], '', $request->cnpj_cliente);
-        $telefone_celular_formatado = str_replace(['(', ')', '-', ' '], '', $request->telefone_celular_cliente);
-        $telefone_formatado = str_replace(['(', ')', '-', ' '], '', $request->telefone_fixo_cliente);
-        $cep_formatado = str_replace(['.', '-', '/'], '', $request->cep_cliente);
+        $format = new Formatter;
 
         Cliente::create([
             'nome_cliente'              => $request->nome_cliente,
             'nascimento_cliente'        => $request->nascimento_cliente,
             'tipo_cliente'              => $request->tipo_cliente,
-            'cpf_cliente'               => $cpf_formatado,
-            'rg_cliente'                => $rg_formatado,
-            'cnpj_cliente'              => $cnpj_formatado,
+            'cpf_cliente'               => $format->formatCpf($request->cpf_cliente),
+            'rg_cliente'                => $format->formatRg($request->rg_cliente),
+            'cnpj_cliente'              => $format->formatCnpj($request->cnpj_cliente),
             'nome_fantasia_cliente'     => $request->nome_fantasia_cliente,
             'status_cliente'            => $request->status_cliente,
-            'telefone_celular_cliente'  => $telefone_celular_formatado,
-            'telefone_fixo_cliente'     => $telefone_formatado,
+            'telefone_celular_cliente'  => $format->formatCelular($request->telefone_celular_cliente),
+            'telefone_fixo_cliente'     => $format->formatTelefone($request->telefone_fixo_cliente),
             'email_cliente'             => $request->email_cliente,
-            'cep_cliente'               => $cep_formatado,
+            'cep_cliente'               => $format->formatCep($request->cep_cliente),
             'cidade_cliente'            => $request->cidade_cliente,
             'estado_cliente'            => $request->estado_cliente,
             'bairro_cliente'            => $request->bairro_cliente,
@@ -140,26 +136,21 @@ class ClientesController extends Controller
             'observacoes' => 'nullable',
         ]);
 
-        $cpf_formatado = str_replace(['.', '-'], '', $request->cpf_cliente);
-        $rg_formatado = str_replace(['.', '-'], '', $request->rg_cliente);
-        $cnpj_formatado = str_replace(['.', '-', '/'], '', $request->cnpj_cliente);
-        $telefone_celular_formatado = str_replace(['(', ')', '-', ' '], '', $request->telefone_celular_cliente);
-        $telefone_formatado = str_replace(['(', ')', '-', ' '], '', $request->telefone_fixo_cliente);
-        $cep_formatado = str_replace(['.', '-', '/'], '', $request->cep_cliente);
+        $format = new Formatter;
 
         $cliente->update([
             'nome_cliente'              => $request->nome_cliente,
             'nascimento_cliente'        => $request->nascimento_cliente,
             'tipo_cliente'              => $request->tipo_cliente,
-            'cpf_cliente'               => $cpf_formatado,
-            'rg_cliente'                => $rg_formatado,
-            'cnpj_cliente'              => $cnpj_formatado,
+            'cpf_cliente'               => $format->formatCpf($request->cpf_cliente),
+            'rg_cliente'                => $format->formatRg($request->rg_cliente),
+            'cnpj_cliente'              => $format->formatCnpj($request->cnpj_cliente),
             'nome_fantasia_cliente'     => $request->nome_fantasia_cliente,
             'status_cliente'            => $request->status_cliente,
-            'telefone_celular_cliente'  => $telefone_celular_formatado,
-            'telefone_fixo_cliente'     => $telefone_formatado,
+            'telefone_celular_cliente'  => $format->formatCelular($request->telefone_celular_cliente),
+            'telefone_fixo_cliente'     => $format->formatTelefone($request->telefone_fixo_cliente),
             'email_cliente'             => $request->email_cliente,
-            'cep_cliente'               => $cep_formatado,
+            'cep_cliente'               => $format->formatCep($request->cep_cliente),
             'cidade_cliente'            => $request->cidade_cliente,
             'estado_cliente'            => $request->estado_cliente,
             'bairro_cliente'            => $request->bairro_cliente,
