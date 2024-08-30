@@ -11,6 +11,10 @@ use Barryvdh\DomPDF\Facade\Pdf AS PDF;
 
 class ClientesController extends Controller
 {
+    public $cep_cliente = null;
+    public $cidade_cliente = null;
+    public $estado_cliente = null;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -67,6 +71,17 @@ class ClientesController extends Controller
 
         $format = new Formatter;
 
+        if($request->cidade_cliente == null)
+        {
+            $this->cidade_cliente = 'Botelhos';
+            $this->cep_cliente = '37720000';
+            $this->estado_cliente = 'MG';
+        } else {
+            $this->cidade_cliente = $request->cidade_cliente;
+            $this->cep_cliente = $request->cep_cliente;
+            $this->estado_cliente = $request->estado_cliente;
+        }
+
         Cliente::create([
             'nome_cliente'              => $request->nome_cliente,
             'nascimento_cliente'        => $request->nascimento_cliente,
@@ -79,9 +94,9 @@ class ClientesController extends Controller
             'telefone_celular_cliente'  => $format->formatCelular($request->telefone_celular_cliente),
             'telefone_fixo_cliente'     => $format->formatTelefone($request->telefone_fixo_cliente),
             'email_cliente'             => $request->email_cliente,
-            'cep_cliente'               => $format->formatCep($request->cep_cliente),
-            'cidade_cliente'            => $request->cidade_cliente,
-            'estado_cliente'            => $request->estado_cliente,
+            'cep_cliente'               => $format->formatCep($this->cep_cliente),
+            'cidade_cliente'            => $this->cidade_cliente,
+            'estado_cliente'            => $this->estado_cliente,
             'bairro_cliente'            => $request->bairro_cliente,
             'logradouro_cliente'        => $request->logradouro_cliente,
             'referencia_cliente'        => $request->referencia_cliente,
