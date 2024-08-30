@@ -38,7 +38,7 @@
 
     <!-- tabela de clientes -->
     <div class="row table-responsive p-2 bg-white shadow rounded">
-        <table class="table table-hover table-striped table-bordered caption-top text-center">
+        <table class="table table-hover table-striped table-bordered caption-top text-center sortable">
             <caption>Lista de clientes</caption>
             <thead>
                 <tr>
