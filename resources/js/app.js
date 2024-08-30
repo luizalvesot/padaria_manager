@@ -1,6 +1,7 @@
 //import './bootstrap';
 
 import 'bootstrap';
+import Sortable from 'sortablejs';
 import $ from 'jquery';
 import 'jquery-mask-plugin';
 
@@ -17,4 +18,16 @@ $(document).ready(function() {
     $('.celular').mask('(00) 00000-0000');
     $('.telefone').mask('(00) 0000-0000');
     $('.cep').mask('00000-000');
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    var sortableList = document.getElementById('sortable-list');
+    
+    new Sortable(sortableList, {
+        animation: 150,
+        onEnd: function (evt) {
+            // Aqui você pode capturar a nova ordem dos itens e enviar para o servidor via AJAX
+            console.log('Item moved', evt.item);
+        },
+    });
 });
