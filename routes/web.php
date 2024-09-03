@@ -18,6 +18,36 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::prefix('/fornecedores')->group(function(){
+    Route::get('/', 
+        [ClientesController::class, 'show'])
+    ->name('fornecedores.show');
+
+    /*Route::get('/create', 
+        [ClientesController::class, 'create'])
+    ->name('fornecedores.create');
+
+    Route::post('/store', 
+        [ClientesController::class, 'store'])
+    ->name('fornecedores.store');
+
+    Route::get('{fornecedor}/edit', 
+        [ClientesController::class, 'edit'])
+    ->name('fornecedores.edit');
+
+    Route::put('{fornecedor}', 
+        [ClientesController::class, 'update'])
+    ->name('fornecedores.update');
+
+    Route::delete('/{fornecedor}', 
+        [ClientesController::class, 'destroy'])
+    ->name('fornecedores.destroy');
+
+    Route::get('/{id}', 
+        [ClientesController::class, 'showModal'])
+    ->name('fornecedores.showModal');*/
+});
+
 Route::prefix('/clientes')->group(function(){
     Route::get('/', 
         [ClientesController::class, 'show'])

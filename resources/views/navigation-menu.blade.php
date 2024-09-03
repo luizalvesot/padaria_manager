@@ -28,7 +28,7 @@
                         {{ __('Produtos') }}
                     </x-nav-link>
 
-                    <x-nav-link href="{{-- route('fornecedores.show') --}}" {{--:active="request()->routeIs('fornecedores.show')"--}}>
+                    <x-nav-link href="{{ route('fornecedores.show') }}" :active="request()->routeIs('fornecedores.show')">
                         {{ __('Fornecedores') }}
                     </x-nav-link>
 
