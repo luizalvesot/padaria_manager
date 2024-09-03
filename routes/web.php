@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Manager\Clientes\ClientesController;
+use App\Http\Controllers\Manager\Fornecedores\FornecedorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ Route::get('/', function () {
 
 Route::prefix('/fornecedores')->group(function(){
     Route::get('/', 
-        [ClientesController::class, 'show'])
+        [FornecedorController::class, 'show'])
     ->name('fornecedores.show');
 
     /*Route::get('/create', 
