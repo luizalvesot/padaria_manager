@@ -8,6 +8,10 @@
     display: none;
 }
 
+.card-dashboard{
+    border-radius: 22px;
+}
+
 .card-dashboard:hover{
     cursor: pointer;
     opacity: 0.9;
