@@ -7,3 +7,8 @@
 [x-cloak] {
     display: none;
 }
+
+.card-dashboard:hover{
+    cursor: pointer;
+    opacity: 0.9;
+}
