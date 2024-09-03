@@ -13,7 +13,27 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Padaria - gerenciamento') }}
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+
+                    <x-nav-link href="{{-- route('vendas.show') --}}" {{--:active="request()->routeIs('vendas.show')"--}}>
+                        {{ __('Vendas') }}
+                    </x-nav-link>
+
+                    <x-nav-link href="{{-- route('vendas.show') --}}" {{--:active="request()->routeIs('vendas.show')"--}}>
+                        {{ __('Vendas mensais') }}
+                    </x-nav-link>
+
+                    <x-nav-link href="{{-- route('produtos.show') --}}" {{--:active="request()->routeIs('produtos.show')"--}}>
+                        {{ __('Produtos') }}
+                    </x-nav-link>
+
+                    <x-nav-link href="{{-- route('fornecedores.show') --}}" {{--:active="request()->routeIs('fornecedores.show')"--}}>
+                        {{ __('Fornecedores') }}
+                    </x-nav-link>
+
+                    <x-nav-link href="{{ route('clientes.show') }}" :active="request()->routeIs('clientes.show')">
+                        {{ __('Clientes') }}
                     </x-nav-link>
                 </div>
             </div>
