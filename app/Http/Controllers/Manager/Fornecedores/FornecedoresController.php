@@ -164,8 +164,20 @@ class FornecedoresController extends Controller
     }
 
     /**
-     * Route: clientes/
-     * Name: clients.showModal
+     * Route: fornecedores/{id}/
+     * Name: fornecedores.showModal
+     * Method: GET
+     **/
+    public function showModal($id)
+    {
+        $fornecedor = Fornecedor::findOrFail($id);
+
+        return view('livewire.manager.fornecedores.detalhes', compact('fornecedor'));
+    }
+
+    /**
+     * Route: fornecedores/
+     * Name: fornecedores.showModal
      * Method: GET
      **/
     public function geraPdf()
