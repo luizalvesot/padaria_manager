@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Manager\Fornecedores\Fornecedor;
 use App\Helpers\Formatter;
 use App\Helpers\Swal;
+use Barryvdh\DomPDF\Facade\Pdf AS PDF;
 
 class FornecedoresController extends Controller
 {
@@ -160,5 +161,18 @@ class FornecedoresController extends Controller
     public function destroy(Fornecedor $fornecedor)
     {
         $fornecedor->delete();
+    }
+
+    /**
+     * Route: clientes/
+     * Name: clients.showModal
+     * Method: GET
+     **/
+    public function geraPdf()
+    {
+        $fornecedor = Fornecedor::all();
+        $pdf = PDF::loadView('manager.fornecedores.pdf', compact('fornecedor'));
+
+        return $pdf->setPaper('a4', 'landscape')->stream('Fornecedores.pdf');
     }
 }
