@@ -77,7 +77,7 @@
             </table>
             <div class="row">
                 <div class="col-md-4">
-                    <a href="{{ route('fornecedors.edit', $fornecedor) }}" class="btn btn-sm btn-success px-auto">Editar informações</a>
+                    <a href="{{ route('fornecedores.edit', $fornecedor) }}" class="btn btn-sm btn-success px-auto">Editar informações</a>
                 </div>
             </div>
         </div>

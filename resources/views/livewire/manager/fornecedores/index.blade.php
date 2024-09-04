@@ -88,7 +88,7 @@
             </tbody>
         </table>
         
-        {{ @include('livewire.manager.fornecedores._modal') }}
+        @include('livewire.manager.fornecedores._modal')
 
         <div class="pagination-sm text-dark">
             {{ $fornecedores->links() }}
