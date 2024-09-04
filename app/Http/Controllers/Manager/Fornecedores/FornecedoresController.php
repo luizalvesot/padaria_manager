@@ -82,9 +82,9 @@ class FornecedoresController extends Controller
         ]);
 
         return Swal::redirect(
-            'info',
-            'Atualização de fornecedor',
-            'O fornecedor foi atualizado com sucesso no sistema!',
+            'success',
+            'Cadastro de fornecedor',
+            'O fornecedor foi cadastrado com sucesso no sistema!',
             'fornecedores.show'
         );
     }
@@ -146,9 +146,9 @@ class FornecedoresController extends Controller
         ]);
 
         return Swal::redirect(
-            'success',
-            'Cadastro de fornecedor',
-            'O fornecedor foi cadastrado com sucesso em nosso sistema!',
+            'info',
+            'Atualização de fornecedor',
+            'O fornecedor foi atualizado com sucesso em nosso sistema!',
             'fornecedores.show'
         );
     }
