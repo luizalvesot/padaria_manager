@@ -53,11 +53,11 @@
                         <td>{{ $fornecedor->id }}</td>
                         <td>{{ $fornecedor->nome_fornecedor}}</td>
                         @if($fornecedor->cnpj_fornecedor != null)
-                            <td class="cpf">{{ $fornecedor->cnpj_fornecedor }}</td>
+                            <td class="cnpj">{{ $fornecedor->cnpj_fornecedor }}</td>
                         @else
                             <td> - </td>
                         @endif
-                        <td class="celular">{{ $fornecedor->telefone_fixo_fornecedor }}</td>
+                        <td class="telefone">{{ $fornecedor->telefone_fixo_fornecedor }}</td>
                         @if($fornecedor->status_fornecedor)
                             <td class="">Ativo</td>
                         @else    
