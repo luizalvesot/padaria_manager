@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Manager\Clientes\ClientesController;
-use App\Http\Controllers\Manager\Fornecedores\FornecedorController;
+use App\Http\Controllers\Manager\Fornecedores\FornecedoresController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,32 +21,32 @@ Route::get('/', function () {
 
 Route::prefix('/fornecedores')->group(function(){
     Route::get('/', 
-        [FornecedorController::class, 'show'])
+        [FornecedoresController::class, 'show'])
     ->name('fornecedores.show');
 
-    /*Route::get('/create', 
-        [ClientesController::class, 'create'])
+    Route::get('/create', 
+        [FornecedoresController::class, 'create'])
     ->name('fornecedores.create');
 
     Route::post('/store', 
-        [ClientesController::class, 'store'])
+        [FornecedoresController::class, 'store'])
     ->name('fornecedores.store');
 
     Route::get('{fornecedor}/edit', 
-        [ClientesController::class, 'edit'])
+        [FornecedoresController::class, 'edit'])
     ->name('fornecedores.edit');
 
     Route::put('{fornecedor}', 
-        [ClientesController::class, 'update'])
+        [FornecedoresController::class, 'update'])
     ->name('fornecedores.update');
 
     Route::delete('/{fornecedor}', 
-        [ClientesController::class, 'destroy'])
+        [FornecedoresController::class, 'destroy'])
     ->name('fornecedores.destroy');
 
     Route::get('/{id}', 
-        [ClientesController::class, 'showModal'])
-    ->name('fornecedores.showModal');*/
+        [FornecedoresController::class, 'showModal'])
+    ->name('fornecedores.showModal');
 });
 
 Route::prefix('/clientes')->group(function(){

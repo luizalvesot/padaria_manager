@@ -69,17 +69,17 @@
                             </button>
                         </td>
                         <td>
-                            <a class="btn btn-secondary btn-sm" title="Editar fornecedor" href="{{-- route('fornecedores.edit', $fornecedor) --}}">
+                            <a class="btn btn-secondary btn-sm" title="Editar fornecedor" href="{{ route('fornecedores.edit', $fornecedor) }}">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                         </td>
                         <td>
                             <a class="btn btn-danger btn-sm" title="Deletar fornecedor"  
                                 data-token="{{ csrf_token() }}" 
-                                data-route="{{-- route('fornecedores.destroy', $fornecedor) --}}"
-                                data-redirect="{{-- route('fornecedores.show', $fornecedor) --}}"
-                                id="delete{{-- $fornecedor->id --}}"
-                                onclick="deleteData({{-- $fornecedor->id --}})">
+                                data-route="{{ route('fornecedores.destroy', $fornecedor) }}"
+                                data-redirect="{{ route('fornecedores.show', $fornecedor) }}"
+                                id="delete{{ $fornecedor->id }}"
+                                onclick="deleteData({{ $fornecedor->id }})">
                                 <i class="bi bi-trash"></i>
                             </a>
                         </td>

@@ -10,7 +10,7 @@
                 </nav>
             </div>
             <div class="col-md-2">
-                <a href="{{--route('clientes.create')--}}" title="Cadastrar fornecedor" class="btn btn-sm btn-success px-3">
+                <a href="{{ route('fornecedores.create') }}" title="Cadastrar fornecedor" class="btn btn-sm btn-success px-3">
                     Cadastrar
                     <i class="bi bi-plus-lg"></i>
                 </a>

@@ -15,11 +15,7 @@
                 @enderror
             </div>
         </div>
-    </div>
-    
-    <div class="row mb-3">
-        <!-- tipo de fornecedor - pessoa fisica ou juridica -->
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="form-group">
                 <label for="tipo_fornecedor" class="text-dark"><strong>Tipo de fornecedor </strong><strong class="text-danger"> *</strong></label>
                 <select class="form-select rounded py-1 @error('tipo_fornecedor') is-invalid @enderror" id="tipo_fornecedor" name="tipo_fornecedor">
