@@ -66,9 +66,9 @@ Route::prefix('/clientes')->group(function(){
  * 
  */
 Route::prefix('/pdf')->group(function(){
-    Route::get('clientes', [ClientesController::class, 'geraPdf'])->name('clientes.pdf');
+    Route::get('/clientes', [ClientesController::class, 'geraPdf'])->name('clientes.pdf');
 
-    Route::get('fornecedores', [FornecedoresController::class, 'geraPdf'])->name('fornecedores.pdf');
+    Route::get('/fornecedores', [FornecedoresController::class, 'geraPdf'])->name('fornecedores.pdf');
 });
 
 
