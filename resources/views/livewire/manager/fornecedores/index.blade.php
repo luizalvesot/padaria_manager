@@ -21,7 +21,7 @@
         </div>
         <div class="col-md-2">
             <button type="button" class="btn btn-success btn-sm mt-4 px-4" wire:click="search_fornecedor">Pesquisar</button>
-            <a href="{{-- route('clientes.pdf') --}}" target="_blank" title="Imprimir lista de fornecedores" 
+            <a href="{{ route('fornecedores.pdf') }}" target="_blank" title="Imprimir lista de fornecedores" 
                 class="btn btn-secondary btn-sm px-auto mt-4">
                 <i class="bi bi-printer"></i>
             </a>
@@ -88,7 +88,7 @@
             </tbody>
         </table>
         
-        {{-- @include('livewire.manager.clientes._modal') --}}
+        {{ @include('livewire.manager.fornecedores._modal') }}
 
         <div class="pagination-sm text-dark">
             {{ $fornecedores->links() }}

@@ -13,6 +13,21 @@ function carregarCliente(id) {
 
 window.carregarCliente = carregarCliente;  // Torna a função disponível globalmente
 
+function carregarFornecedor(id) {
+    $.ajax({
+        url: '/fornecedores/' + id, // Ajuste a URL conforme necessário
+        type: 'GET',
+        success: function(data) {
+            $('#fornecedorDetalhes').html(data);
+        },
+        error: function() {
+            $('#fornecedorDetalhes').html('Erro ao carregar os detalhes do fornecedor.');
+        }
+    });
+}
+
+window.carregarFornecedor = carregarFornecedor;
+
 function deleteData(e) { 
     var t = "delete" + e, 
         a = document.getElementById(t), 
