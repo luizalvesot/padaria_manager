@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Manager\Clientes\ClientesController;
 use App\Http\Controllers\Manager\Fornecedores\FornecedoresController;
+use App\Http\Controllers\Manager\Produtos\CategoriaProdutos\CategoriasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,26 @@ Route::prefix('/clientes')->group(function(){
     Route::delete('/{cliente}', [ClientesController::class, 'destroy'])->name('clientes.destroy');
     
     Route::get('/{id}', [ClientesController::class, 'showModal'])->name('clientes.showModal');
+});
+
+/**
+ * 
+ * Grupo de rotas utilizadas nas categorias de produtos
+ */
+Route::prefix('/categorias')->group(function(){
+    Route::get('/', [CategoriasController::class, 'show'])->name('categorias.show');
+    
+    Route::get('/create', [CategoriasController::class, 'create'])->name('categorias.create');
+    
+    Route::post('/store', [CategoriasController::class, 'store'])->name('categorias.store');
+    
+    Route::get('{categoria}/edit', [CategoriasController::class, 'edit'])->name('categorias.edit');
+    
+    Route::put('{categoria}', [CategoriasController::class, 'update'])->name('categorias.update');
+    
+    Route::delete('/{categoria}', [CategoriasController::class, 'destroy'])->name('categorias.destroy');
+    
+    Route::get('/{id}', [CategoriasController::class, 'showModal'])->name('categorias.showModal');
 });
 
 /**

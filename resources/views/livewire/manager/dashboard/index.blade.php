@@ -1,5 +1,6 @@
 <div>
     <div class="container p-4">
+        <a href="{{ route('categorias.show') }}" class="btn btn-warning px-3">Categorias de produtos</a>
         <div class="row">
             <div class="col-md-4">
                 <div class="card card-dashboard bg-secondary border shadow pb-2 mx-2 my-1">
