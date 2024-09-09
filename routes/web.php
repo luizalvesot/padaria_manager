@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Manager\Clientes\ClientesController;
 use App\Http\Controllers\Manager\Fornecedores\FornecedoresController;
 use App\Http\Controllers\Manager\Produtos\CategoriaProdutos\CategoriasController;
+use App\Http\Controllers\Manager\Produtos\TipoMedidas\MedidasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,6 +80,26 @@ Route::prefix('/categorias')->group(function(){
     Route::delete('/{categoria}', [CategoriasController::class, 'destroy'])->name('categorias.destroy');
     
     Route::get('/{id}', [CategoriasController::class, 'showModal'])->name('categorias.showModal');
+});
+
+/**
+ * 
+ * Grupo de rotas utilizadas nos tipos de medidas de produtos
+ */
+Route::prefix('/medidas')->group(function(){
+    Route::get('/', [MedidasController::class, 'show'])->name('medidas.show');
+    
+    Route::get('/create', [MedidasController::class, 'create'])->name('medidas.create');
+    
+    Route::post('/store', [MedidasController::class, 'store'])->name('medidas.store');
+    
+    Route::get('{medida}/edit', [MedidasController::class, 'edit'])->name('medidas.edit');
+    
+    Route::put('{medida}', [MedidasController::class, 'update'])->name('medidas.update');
+    
+    Route::delete('/{medida}', [MedidasController::class, 'destroy'])->name('medidas.destroy');
+    
+    Route::get('/{id}', [MedidasController::class, 'showModal'])->name('medidas.showModal');
 });
 
 /**
