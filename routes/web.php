@@ -5,6 +5,7 @@ use App\Http\Controllers\Manager\Clientes\ClientesController;
 use App\Http\Controllers\Manager\Fornecedores\FornecedoresController;
 use App\Http\Controllers\Manager\Produtos\CategoriaProdutos\CategoriasController;
 use App\Http\Controllers\Manager\Produtos\TiposMedidas\MedidasController;
+use App\Http\Controllers\Manager\Produtos\ProdutosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,27 @@ use App\Http\Controllers\Manager\Produtos\TiposMedidas\MedidasController;
 
 Route::get('/', function () {
     return redirect()->route('login');
+});
+
+/**
+ * 
+ * Grupo de rotas utilizadas nas views de FORNECEDORES
+ * 
+ */
+Route::prefix('/produtos')->group(function(){
+    Route::get('/', [ProdutosController::class, 'show'])->name('produtos.show');
+
+    Route::get('/create', [ProdutosController::class, 'create'])->name('produtos.create');
+
+    Route::post('/store', [ProdutosController::class, 'store'])->name('produtos.store');
+
+    Route::get('{produto}/edit', [ProdutosController::class, 'edit'])->name('produtos.edit');
+
+    Route::put('{produto}', [ProdutosController::class, 'update'])->name('produtos.update');
+
+    Route::delete('/{produto}', [ProdutosController::class, 'destroy'])->name('produtos.destroy');
+
+    Route::get('/{id}', [ProdutosController::class, 'showModal'])->name('produtos.showModal');
 });
 
 /**
