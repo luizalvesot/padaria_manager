@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Manager\Clientes\ClientesController;
 use App\Http\Controllers\Manager\Fornecedores\FornecedoresController;
 use App\Http\Controllers\Manager\Produtos\CategoriaProdutos\CategoriasController;
-use App\Http\Controllers\Manager\Produtos\TipoMedidas\MedidasController;
+use App\Http\Controllers\Manager\Produtos\TiposMedidas\MedidasController;
 
 /*
 |--------------------------------------------------------------------------
