@@ -20,11 +20,11 @@ class Index extends Component
 
     public function render()
     {
-        $categorias = TipoMedida::where('descricao_medida', 'like', "%".$this->descricao_medida."%")
+        $medidas = TipoMedida::where('descricao_medida', 'like', "%".$this->descricao_medida."%")
                     ->where('representacao_medida', 'like', "%".$this->representacao_medida."%")
                     ->paginate(10);
 
-        return view('livewire.manager.produtos.tipo-medidas.index');
+        return view('livewire.manager.produtos.tipo-medidas.index', compact('medidas'));
     }
 
     public function updatingSearch()

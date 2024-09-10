@@ -12,7 +12,7 @@
                     class="form-control border rounded py-1 px-2 shadow-sm">
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn btn-success btn-sm mt-4 px-4" wire:click="search_categoria">Pesquisar</button>
+            <button type="button" class="btn btn-success btn-sm mt-4 px-4" wire:click="search_medida">Pesquisar</button>
             <button type="button" class="btn btn-sm btn-secondary px-auto mt-4" onclick="location.reload();">
                 <i class="bi bi-arrow-clockwise"></i>
             </button>
