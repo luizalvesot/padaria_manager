@@ -46,10 +46,13 @@ class MedidasController extends Controller
             'representacao_medida' => 'required',
         ]);
 
+        $chave = strtolower($request->descricao_medida);
+        $chave_formatada = preg_replace('/[ -]+/' , '_' , $chave);
+        
         TipoMedida::create([
             'descricao_medida'     => $request->descricao_medida,
             'representacao_medida' => $request->representacao_medida,
-            'chave_medida'         => $request->chave_medida, //ajustar
+            'chave_medida'         => $chave_formatada
         ]);
 
         return Swal::redirect(
