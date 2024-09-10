@@ -46,10 +46,13 @@ class CategoriasController extends Controller
             'descricao_categoria' => 'nullable',
         ]);
 
+        $chave = strtolower($request->nome_categoria);
+        $chave_formatada = preg_replace('/[ -]+/' , '_' , $chave);
+
         CategoriaProduto::create([
             'nome_categoria'              => $request->nome_categoria,
             'descricao_categoria'         => $request->descricao_categoria,
-            'chave_categoria'             => $request->nome_categoria,
+            'chave_categoria'             => $chave_formatada,
         ]);
 
         return Swal::redirect(
