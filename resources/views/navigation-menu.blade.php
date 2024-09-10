@@ -24,7 +24,7 @@
                         {{ __('Vendas mensais') }}
                     </x-nav-link>
 
-                    <x-nav-link href="{{-- route('produtos.show') --}}" {{--:active="request()->routeIs('produtos.show')"--}}>
+                    <x-nav-link href="{{ route('produtos.show') }}" :active="request()->routeIs('produtos.show')">
                         {{ __('Produtos') }}
                     </x-nav-link>
 
