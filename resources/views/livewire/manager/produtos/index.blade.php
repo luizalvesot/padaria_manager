@@ -13,7 +13,7 @@
         </div>
         <div class="col-md-3">
             <label class="text-dark"><strong>Código de barras</strong></label>
-            <input type="text" placeholder="Código de barras" wire:model.defer="codigo_barras_produtos" id="codigo_barras_produtos"
+            <input type="text" placeholder="Código de barras" wire:model.defer="codigo_barras_produto" id="codigo_barras_produto"
                     class="form-control border rounded py-1 px-2 shadow-sm">
         </div>
         <div class="col-md-3">
