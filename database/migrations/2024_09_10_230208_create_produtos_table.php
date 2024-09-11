@@ -19,11 +19,11 @@ return new class extends Migration
                     ->references('id')
                     ->on('categoria_produtos')
                     ->onDelete('restrict');
-            $table->foreignId('fornecedor_produto')
+            $table->foreignId('fornecedor')
                     ->references('id')
                     ->on('forncedores')
                     ->onDelete('restrict');
-            $table->foreignId('medida_produto')
+            $table->foreignId('tipo_medida')
                     ->references('id')
                     ->on('tipo_medidas')
                     ->onDelete('restrict');
@@ -35,6 +35,7 @@ return new class extends Migration
             $table->dateTime('hora_ultima_saida')->nullable();
             $table->double('qtd_ultima_entrada')->nullable();
             $table->double('qtd_ultima_saida')->nullable();
+            $table->boolean('status_produto');
             $table->string('observacoes_produto')->nullable();
             $table->timestamps();
             $table->softDeletes();

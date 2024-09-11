@@ -11,7 +11,7 @@ class Index extends Component
     use WithPagination;
 
     public $descricao_produto = '';
-    public $id = '';
+    public $id_produto = null;
     public $codigo_barras_produto = '';
     public $fornecedor_produto = '';
     public $categoria_produto = '';
@@ -23,14 +23,25 @@ class Index extends Component
 
     public function render()
     {
-        $produtos = Produto::where('descricao_produto', 'like', "%".$this->descricao_produto."%")
-                    ->find($this->id)
+        if($this->id_produto != null)
+        {
+            $produtos = Produto::where('descricao_produto', 'like', "%".$this->descricao_produto."%")
+                    ->where('id', $this->id_produto)
                     ->where('codigo_barras_produto', 'like', "%".$this->codigo_barras_produto."%")
-                    ->where('fornecedor_produto', 'like', "%".$this->fornecedor_produto."%")
+                    ->where('fornecedor', 'like', "%".$this->fornecedor_produto."%")
                     ->where('categoria_produto', 'like', "%".$this->categoria_produto."%")
                     ->paginate(15);
 
-        return view('livewire.manager.produtos.index', compact('produtos'));
+            return view('livewire.manager.produtos.index', compact('produtos'));
+        } else {
+            $produtos = Produto::where('descricao_produto', 'like', "%".$this->descricao_produto."%")
+                    ->where('codigo_barras_produto', 'like', "%".$this->codigo_barras_produto."%")
+                    ->where('fornecedor', 'like', "%".$this->fornecedor_produto."%")
+                    ->where('categoria_produto', 'like', "%".$this->categoria_produto."%")
+                    ->paginate(15);
+            
+            return view('livewire.manager.produtos.index', compact('produtos'));
+        }
     }
 
     public function updatingSearch()

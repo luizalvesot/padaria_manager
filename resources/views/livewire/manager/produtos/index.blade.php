@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-1">
             <label class="text-dark"><strong>Códido</strong></label>
-            <input type="text" placeholder="Código" wire:model.defer="id" id="id"
+            <input type="text" placeholder="Código" wire:model.defer="id_produto" id="id"
                     class="form-control border rounded py-1 px-2 shadow-sm">
         </div>
         <div class="col-md-3">
@@ -47,50 +47,53 @@
             <thead>
                 <tr>
                     <th scope="col">Código</th>
-                    <th scope="col">Nome/Razão social</th>
-                    <th scope="col">Tipo</th>
-                    <th scope="col">CPF/CNPJ</th>
-                    <th scope="col">Telefone</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Medida</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Custo</th>
+                    <th scope="col">Desconto</th>
+                    <th scope="col">Preço de venda</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Ver</th>
+                    <th scope="col">Última saída</th>
                     <th scope="col">Editar</th>
                     <th scope="col">Deletar</th>
                 </tr>
             </thead>
             <tbody>
-               {{-- @foreach ($clientes as $cliente)
+                @foreach ($produtos as $produto)
                     <tr>
-                        <td>{{ $cliente->id }}</td>
-                        <td>{{ $cliente->nome_cliente }}</td>
-                        <td>{{ $cliente->tipo_cliente }}</td>
-                        @if($cliente->cpf_cliente != null)
-                            <td class="cpf">{{ $cliente->cpf_cliente }}</td>
+                        <td>{{ $produto->id }}</td>
+                        <td>{{ $produto->descricao_produto }}</td>
+                        <td>{{ $produto->categoria_produto->nome_categoria }}</td>
+                        <td>{{ $produto->tipo_medida->representacao_medida }}</td>
+                        <td>{{ $produto->quantidade_produto }}</td>
+                        <td>{{ $produto->preco_custo_produto }}</td>
+                        <td>{{ $produto->desconto_produto ?? '0'}}</td>
+                        <td>{{ $produto->preco_venda_produto }}</td>
+                        @if($produto->status_produto != 0)
+                            <td class="text-success">Ativo</td>
                         @else
-                            <td> - </td>
-                        @endif
-                        <td class="celular">{{ $cliente->telefone_celular_cliente }}</td>
-                        @if($cliente->status_cliente)
-                            <td class="">Ativo</td>
-                        @else    
                             <td class="text-danger">Inativo</td>
-                        @endif    
+                        @endif
+                        <td>{{ $produto->hora_ultima_saida }}</td>
                         <td>
-                            <button class="btn btn-primary btn-sm" title="Visualizar dados do cliente" data-bs-toggle="modal" data-bs-target="#clienteModal" onclick="carregarCliente({{ $cliente->id }})">
+                            <button class="btn btn-primary btn-sm" title="Visualizar todos os dados do produto" data-bs-toggle="modal" data-bs-target="#produtoModal" onclick="carregarProduto({{ $produto->id }})">
                                 <i class="bi bi-eye"></i>
                             </button>
                         </td>
                         <td>
-                            <a class="btn btn-secondary btn-sm" title="Editar cliente" href="{{ route('clientes.edit', $cliente) }}">
+                            <a class="btn btn-secondary btn-sm" title="Editar produto" href="{{ route('produtos.edit', $produto) }}">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                         </td>
                         <td>
-                            <a class="btn btn-danger btn-sm" title="Deletar cliente"  
+                            <a class="btn btn-danger btn-sm" title="Deletar produto"  
                                 data-token="{{ csrf_token() }}" 
-                                data-route="{{ route('clientes.destroy', $cliente) }}"
-                                data-redirect="{{ route('clientes.show', $cliente) }}"
-                                id="delete{{ $cliente->id }}"
-                                onclick="deleteData({{ $cliente->id }})">
+                                data-route="{{ route('produtos.destroy', $produto) }}"
+                                data-redirect="{{ route('produtos.show', $produto) }}"
+                                id="delete{{ $produto->id }}"
+                                onclick="deleteData({{ $produto->id }})">
                                 <i class="bi bi-trash"></i>
                             </a>
                         </td>
@@ -99,10 +102,10 @@
             </tbody>
         </table>
         
-        @include('livewire.manager.clientes._modal')
+        {{--@include('livewire.manager.produtos._modal')--}}
 
-        <div class="pagination-sm text-dark">
-            {{ $clientes->links() }}
+        {{--<div class="pagination-sm text-dark">
+            {{ $produtos->links() }}
         </div>--}}
     </div>
 </div>
