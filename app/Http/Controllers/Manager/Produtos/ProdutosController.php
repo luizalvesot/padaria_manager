@@ -11,4 +11,9 @@ class ProdutosController extends Controller
     {
         return view('manager.produtos.index');
     }
+
+    public function create()
+    {
+        return view('manager.produtos.create');
+    }
 }
