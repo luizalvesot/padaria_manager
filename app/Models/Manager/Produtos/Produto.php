@@ -19,7 +19,7 @@ class Produto extends Model
         'codigo_barras_produto',
         'descricao_produto',
         'categoria_produto',
-        'fornecedor_produto',
+        'fornecedor',
         'tipo_medida',
         'quantidade_produto',
         'preco_custo_produto',
@@ -38,6 +38,16 @@ class Produto extends Model
     public function tipo_medidas()
     {
         return $this->belongsTo(TipoMedida::class, 'medida_produto');
+    }
+
+    public function categoria_produto()
+    {
+        return $this->belongsTo(CategoriaProduto::class, 'categoria_produto');
+    }
+
+    public function fornecedor()
+    {
+        return $this->belongsTo(Fornecedor::class, 'fornecedor');
     }
 
     public function getCategoriaProdutoAttribute()
