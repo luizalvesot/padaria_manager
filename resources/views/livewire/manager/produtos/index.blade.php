@@ -4,35 +4,40 @@
         <div class="row mb-2">
             <div class="col-md-2">
                 <label class="text-dark"><strong>Códido</strong></label>
-                <input type="text" wire:model.defer="id_produto" id="id"
-                        class="form-control border rounded py-1 px-2">
+                <input type="text" wire:model="id_produto" class="form-control border rounded py-1 px-2">
             </div>
             <div class="col-md-5">
                 <label class="text-dark"><strong>Descrição</strong></label>
-                <input type="text" wire:model.defer="descricao_produto" id="descricao_produto"
-                        class="form-control border rounded py-1 px-2">
+                <input type="text" wire:model="descricao_produto" class="form-control border rounded py-1 px-2">
             </div>
             <div class="col-md-5">
                 <label class="text-dark"><strong>Código de barras</strong></label>
-                <input type="text" wire:model.defer="codigo_barras_produto" id="codigo_barras_produto"
-                        class="form-control border rounded py-1 px-2">
+                <input type="text" wire:model="codigo_barras_produto" class="form-control border rounded py-1 px-2">
             </div>
         </div>
         <div class="row">
             <div class="col-md-3">
                 <label class="text-dark"><strong>Categoria</strong></label>
-                <input type="text" wire:model.defer="categoria_produto" id="categoria_produto"
-                        class="form-control border rounded py-1 px-2">
+                <select class="form-select border rounded py-1 px-3" wire:model="categoria_produto">
+                    <option value=''>Selecione</option>
+                    @foreach($categoria_produtos as $categoria_produto)
+                        <option value="{{ $categoria_produto->id }}">{{ $categoria_produto->nome_categoria }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="col-md-4">
                 <label class="text-dark"><strong>Fornecedor</strong></label>
-                <input type="text" wire:model.defer="fornecedor_produto" id="fornecedor_produto"
-                        class="form-control border rounded py-1 px-2">
+                <select class="form-select border rounded py-1 px-3" wire:model="fornecedor_produto">
+                    <option value=''>Selecione</option>
+                    @foreach($fornecedores as $fornecedor)
+                        <option value="{{ $fornecedor->id }}">{{ $fornecedor->nome_fornecedor }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="col-md-2">
                 <label class="text-dark"><strong>Status</strong></label>
-                <select class="form-select border rounded py-1 px-3" wire:model.defer="status_cliente" id="status_cliente">
-                    <option value="">Todos</option>
+                <select class="form-select border rounded py-1 px-3" wire:model="status">
+                    <option value=''>Todos</option>
                     <option value=1>Ativo</option>
                     <option value=0>Inativo</option>
                 </select>
