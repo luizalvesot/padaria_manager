@@ -26,6 +26,6 @@
                 </a>
             </div>
         </div><hr>
-        <livewire:manager.produtos/>
+        <livewire:manager.produtos :fornecedores="$fornecedores" :categoria_produtos="$categoria_produtos"/>
     </div>
 </x-app-layout>

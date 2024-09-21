@@ -17,7 +17,7 @@
 
                 @include('manager.produtos._form-fields')
 
-                <div class="row text-right mt-4">
+                <div class="row mt-4">
                     <div class="col">
                         <a href="{{ route('produtos.show') }}" class="btn btn-secondary btn-sm px-4">Voltar</a>
                         <button type="submit" class="btn btn-primary btn-sm active px-5">Cadastrar</button>
