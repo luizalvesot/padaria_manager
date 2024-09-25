@@ -55,7 +55,7 @@ class ProdutosController extends Controller
     {
         $request->validate([
             'descricao_produto'      => 'required|max:255',
-            'codigo_barras_produtos' => 'nullable',
+            'codigo_barras_produto' => 'nullable',
             'categoria_produto'      => 'required',
             'tipo_medida'            => 'required',
             'fornecedor'             => 'required',
@@ -71,7 +71,7 @@ class ProdutosController extends Controller
         
         Produto::create([
             'descricao_produto'      => $request->descricao_produto,
-            'codigo_barras_produtos' => $request->codigo_barras_produto,
+            'codigo_barras_produto' => $request->codigo_barras_produto,
             'categoria_produto'      => $request->categoria_produto,
             'tipo_medida'            => $request->tipo_medida,
             'fornecedor'             => $request->fornecedor,
@@ -116,7 +116,7 @@ class ProdutosController extends Controller
     {
         $request->validate([
             'descricao_produto'      => 'required|max:255',
-            'codigo_barras_produtos' => 'nullable',
+            'codigo_barras_produto' => 'nullable',
             'categoria_produto'      => 'required',
             'tipo_medida'            => 'required',
             'fornecedor'             => 'required',
@@ -133,7 +133,7 @@ class ProdutosController extends Controller
 
         $produto->update([
             'descricao_produto'      => $request->descricao_produto,
-            'codigo_barras_produtos' => $request->codigo_barras_produto,
+            'codigo_barras_produto' => $request->codigo_barras_produto,
             'categoria_produto'      => $request->categoria_produto,
             'tipo_medida'            => $request->tipo_medida,
             'fornecedor'             => $request->fornecedor,
