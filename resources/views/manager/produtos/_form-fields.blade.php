@@ -145,16 +145,16 @@
                 <label for="status_produto" class="text-dark"><strong>Status </strong><strong class="text-danger"> *</strong></label>
                 <select class="form-select rounded py-0 @error('status_produto') is-invalid @enderror" id="status_produto" name="status_produto">
                     @if(isset($produto))
-                        @if($produto->status_produto == 1)
-                            <option value=1>Ativo</option>
-                            <option value=0>Inativo</option>
+                        @if($produto->status_produto == "ativo")
+                            <option value="ativo">Ativo</option>
+                            <option value="inativo">Inativo</option>
                         @else 
-                            <option value=0>Inativo</option>
-                            <option value=1>Ativo</option>
+                            <option value="inativo">Inativo</option>
+                            <option value="ativo">Ativo</option>
                         @endif
                     @else
-                        <option value=1>Ativo</option>
-                        <option value=0>Inativo</option>
+                        <option value="ativo">Ativo</option>
+                        <option value="inativo">Inativo</option>
                     @endif
                 </select>
             </div>

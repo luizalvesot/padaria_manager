@@ -20,7 +20,7 @@
                 <div class="row mt-4">
                     <div class="col">
                         <a href="{{ route('produtos.show') }}" class="btn btn-secondary btn-sm px-4">Voltar</a>
-                        <button type="submit" class="btn btn-primary btn-sm active px-5">Editar</button>
+                        <button type="submit" class="btn btn-primary btn-sm active px-5">Salvar</button>
                     </div>
                 </div>
             </div>

@@ -18,6 +18,11 @@ class ProdutosController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * Route: produtos/
+     * Name: produtos.show
+     * Method: GET
+     **/    
     public function show()
     {
         $categoria_produtos = CategoriaProduto::all();
@@ -26,6 +31,11 @@ class ProdutosController extends Controller
         return view('manager.produtos.index', compact('categoria_produtos', 'fornecedores'));
     }
 
+    /**
+     * Route: produtos/create/
+     * Name: produtos.create
+     * Method: GET
+     **/
     public function create()
     {
         $tipo_medidas = TipoMedida::all();
@@ -35,6 +45,11 @@ class ProdutosController extends Controller
         return view('manager.produtos.create', compact('tipo_medidas', 'categoria_produtos', 'fornecedores'));
     }
 
+    /**
+     * Route: produtos/store/
+     * Name: produtos.store
+     * Method: POST
+     **/
     public function store(Request $request)
     {
         $request->validate([
@@ -75,6 +90,11 @@ class ProdutosController extends Controller
         );
     }
 
+    /**
+     * Route: produtos/{produto}/edit/
+     * Name: produtos.edit
+     * Method: GET
+     **/
     public function edit(Produto $produto)
     {
         $tipo_medidas = TipoMedida::all();
@@ -84,7 +104,56 @@ class ProdutosController extends Controller
         return view('manager.produtos.edit', compact('produto', 'tipo_medidas', 'categoria_produtos', 'fornecedores'));
     }
 
+    /**
+     * Route: produtos/{produto}/
+     * Name: produtos.update
+     * Method: PUT
+     **/
+    public function update(Request $request, Produto $produto)
+    {
+        $request->validate([
+            'descricao_produto'      => 'required|max:255',
+            'codigo_barras_produtos' => 'nullable',
+            'categoria_produto'      => 'required',
+            'tipo_medida'            => 'required',
+            'fornecedor'             => 'required',
+            'quantidade_produto'     => 'required',
+            'preco_custo_produto'    => 'required',
+            'desconto_produto'       => 'nullable',
+            'preco_venda_produto'    => 'required',
+            'status_produto'         => 'required',
+            'observacoes_produto'    => 'nullable',
+        ]);
 
+        $produto->update([
+            'descricao_produto'      => $request->descricao_produto,
+            'codigo_barras_produtos' => $request->codigo_barras_produto,
+            'categoria_produto'      => $request->categoria_produto,
+            'tipo_medida'            => $request->tipo_medida,
+            'fornecedor'             => $request->fornecedor,
+            'quantidade_produto'     => $request->quantidade_produto,
+            'preco_custo_produto'    => $request->preco_custo_produto,
+            'desconto_produto'       => $request->desconto_produto,
+            'preco_venda_produto'    => $request->preco_venda_produto,
+            'status_produto'         => $request->status_produto,
+            'observacoes_produto'    => $request->observacoes_produto,
+            'hora_ultima_entrada'    => Carbon::now(),
+            'qtd_ultima_entrada'     => $request->quantidade_produto,
+        ]);
+
+        return Swal::redirect(
+            'info',
+            'Atualização de fornecedor',
+            'O fornecedor foi atualizado com sucesso em nosso sistema!',
+            'produtos.show'
+        );
+    }
+
+    /**
+     * Route: produtos/{produto}/
+     * Name: produtos.create
+     * Method: DELETE
+     **/
     public function destroy(Produto $produto)
     {
         $produto->delete();
