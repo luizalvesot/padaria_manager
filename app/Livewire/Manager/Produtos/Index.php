@@ -15,8 +15,7 @@ class Index extends Component
     public $codigo_barras_produto = '';
     public $fornecedor_produto;
     public $categoria_produto;
-    public $status;
-    public $paginate = 15;
+    public $status = '';
 
     public $fornecedores;
     public $categoria_produtos;
@@ -57,10 +56,12 @@ class Index extends Component
         }
 
         if($this->status){
-            $query->where('status_produto', $this->status);
+            if($this->status !== ''){
+                $query->where('status_produto', $this->status);
+            }
         }
 
-        $produtos = $query->get();
+        $produtos = $query->paginate(15);
 
         return view('livewire.manager.produtos.index', compact('produtos'));
     }
