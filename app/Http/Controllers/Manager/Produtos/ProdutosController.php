@@ -83,4 +83,10 @@ class ProdutosController extends Controller
 
         return view('manager.produtos.create', compact('produto', 'tipo_medidas', 'categoria_produtos', 'fornecedores'));
     }
+
+
+    public function destroy(Produto $produto)
+    {
+        $produto->delete();
+    }
 }
