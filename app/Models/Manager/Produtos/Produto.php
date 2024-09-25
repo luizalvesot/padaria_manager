@@ -57,7 +57,7 @@ class Produto extends Model
 
     public function getFornecedorAttribute()
     {
-        return Fornecedor::where('id', $this->attributes['fornecedor_produto'])->first();
+        return Fornecedor::where('id', $this->attributes['fornecedor'])->first();
     }
 
     public function getTipoMedidaAttribute()
