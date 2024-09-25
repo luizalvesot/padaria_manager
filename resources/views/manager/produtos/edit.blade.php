@@ -2,10 +2,11 @@
     <div class="container">
         <div class="row pt-3">
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('produtos.show') }}">produtos</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Editar</li>
+                <ol class="breadcrumb"> 
+                    <li class="breadcrumb-item"><a href="{{ route('produtos.show') }}">Produtos</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        <strong>Editar</strong>
+                    </li>
                 </ol>
             </nav>
         </div><hr>
@@ -16,7 +17,7 @@
                 @method('PUT')
                 @include('manager.produtos._form-fields')
 
-                <div class="row text-right mt-4">
+                <div class="row mt-4">
                     <div class="col">
                         <a href="{{ route('produtos.show') }}" class="btn btn-secondary btn-sm px-4">Voltar</a>
                         <button type="submit" class="btn btn-primary btn-sm active px-5">Editar</button>

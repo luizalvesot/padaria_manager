@@ -81,7 +81,7 @@ class ProdutosController extends Controller
         $categoria_produtos = CategoriaProduto::all();
         $fornecedores = Fornecedor::all();
 
-        return view('manager.produtos.create', compact('produto', 'tipo_medidas', 'categoria_produtos', 'fornecedores'));
+        return view('manager.produtos.edit', compact('produto', 'tipo_medidas', 'categoria_produtos', 'fornecedores'));
     }
 
 
