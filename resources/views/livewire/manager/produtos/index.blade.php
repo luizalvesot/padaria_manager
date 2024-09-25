@@ -64,12 +64,11 @@
                 <tr>
                     <th scope="col">Código</th>
                     <th scope="col">Descrição</th>
-                    <th scope="col">Categoria</th>
-                    <th scope="col">Medida</th>
                     <th scope="col">Quantidade</th>
+                    <th scope="col">Medida</th>
                     <th scope="col">Custo</th>
-                    <th scope="col">Desconto</th>
                     <th scope="col">Preço de venda</th>
+                    <th scope="col">Categoria</th>
                     <th scope="col">Status</th>
                     <th scope="col">Última saída</th>
                     <th scope="col">Editar</th>
@@ -81,12 +80,11 @@
                     <tr>
                         <td>{{ $produto->id }}</td>
                         <td>{{ $produto->descricao_produto }}</td>
-                        <td>{{ $produto->categoria_produto->nome_categoria }}</td>
-                        <td>{{ $produto->tipo_medida->representacao_medida }}</td>
                         <td>{{ $produto->quantidade_produto }}</td>
-                        <td>{{ $produto->preco_custo_produto }}</td>
-                        <td>{{ $produto->desconto_produto ?? ' - '}}</td>
-                        <td>{{ $produto->preco_venda_produto }}</td>
+                        <td>{{ $produto->tipo_medida->representacao_medida }}</td>
+                        <td>R$ {{ $produto->preco_custo_produto }}</td>
+                        <td>R$ {{ $produto->preco_venda_produto }}</td>
+                        <td>{{ $produto->categoria_produto->nome_categoria }}</td>
                         @if($produto->status_produto !== "inativo")
                             <td class="text-success">Ativo</td>
                         @else
