@@ -37,9 +37,9 @@
             <div class="col-md-2">
                 <label class="text-dark"><strong>Status</strong></label>
                 <select class="form-select border rounded py-1 px-3" wire:model="status">
-                    <option value=''>Todos</option>
-                    <option value=1>Ativo</option>
-                    <option value=0>Inativo</option>
+                    <option value="">Todos</option>
+                    <option value="ativo">Ativo</option>
+                    <option value="inativo">Inativo</option>
                 </select>
             </div>
             <!-- botoes do formulario -->
@@ -87,7 +87,7 @@
                         <td>{{ $produto->preco_custo_produto }}</td>
                         <td>{{ $produto->desconto_produto ?? ' - '}}</td>
                         <td>{{ $produto->preco_venda_produto }}</td>
-                        @if($produto->status_produto != 0)
+                        @if($produto->status_produto !== "inativo")
                             <td class="text-success">Ativo</td>
                         @else
                             <td class="text-danger">Inativo</td>
