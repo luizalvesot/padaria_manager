@@ -35,6 +35,10 @@
                         <th scope="row">Tipo de medida</th>
                         <td colspan="2">{{ $produto->tipo_medida->representacao_medida }}</td>
                     </tr>
+                    <tr>
+                        <th scope="row">Quantidade</th>
+                        <td>{{ $produto->quantidade_produto }}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -42,16 +46,12 @@
             <table class="table table-bordered table-striped table-sm">
                 <tbody>
                     <tr>
-                        <th scope="row">Quantidade</th>
-                        <td>{{ $produto->quantidade_produto }}</td>
-                    </tr>
-                    <tr>
                         <th scope="row">Preço de custo</th>
-                        <td id="money">{{ $produto->preco_custo_produto }}</td>
+                        <td>R$ {{ $produto->preco_custo_produto }}</td>
                      </tr>
                     <tr>
                         <th scope="row">Preço de venda</th>
-                        <td colspan="2" id="money">{{ $produto->preco_venda_produto}}</td>
+                        <td colspan="2">R$ {{ $produto->preco_venda_produto}}</td>
                     </tr>
                     <tr>
                         <th scope="row">Desconto</th>
@@ -59,11 +59,11 @@
                     </tr>
                     <tr>
                         <th scope="row">Horário da última entrada</th>
-                        <td colspan="2">{{ $produto->hora_ultima_entrada ?? ' - ' }}</td>
+                        <td colspan="2" id="data">{{ $produto->hora_ultima_entrada ?? ' - ' }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Horário da última saída</th>
-                        <td colspan="2">{{ $produto->hora_ultima_saida ?? ' - ' }}</td>
+                        <td colspan="2" id="data">{{ $produto->hora_ultima_saida ?? ' - ' }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Quantidade da última entrada</th>
@@ -86,17 +86,15 @@
             </div>
         </div>
     </div>
-
     <script>
-        function formatMoney(money) {
-            money = money.replace(/\D/g, ''); // Remove qualquer caractere não numérico
-            return money.replace(/(\d{10})(\d{2})/, '$1,$2');
+        function formatData(data){
+            data = data.replace(/\D/g, '');
+            return data.replace(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '$3/$2/$1 $4:$5:$6');
         }
 
         $(document).ready(function() {
-            var money = $('#money').text();
-            $('#money').text(formatCpf(money));
+            var data = $('#data').text();
+            $('#data').text(formatData(data));
         });
-
     </script>
 </div>

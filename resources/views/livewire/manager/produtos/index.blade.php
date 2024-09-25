@@ -116,7 +116,7 @@
             </tbody>
         </table>
         
-        {{--@include('livewire.manager.produtos._modal')--}}
+        @include('livewire.manager.produtos._modal')
 
         <div class="pagination-sm text-dark">
             {{ $produtos->links() }}

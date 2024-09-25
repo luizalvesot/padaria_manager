@@ -28,6 +28,21 @@ function carregarFornecedor(id) {
 
 window.carregarFornecedor = carregarFornecedor;
 
+function carregarProduto(id) {
+    $.ajax({
+        url: '/produtos/' + id, // Ajuste a URL conforme necessário
+        type: 'GET',
+        success: function(data) {
+            $('#produtoDetalhes').html(data);
+        },
+        error: function() {
+            $('#produtoDetalhes').html('Erro ao carregar os detalhes do produto.');
+        }
+    });
+}
+
+window.carregarProduto = carregarProduto;
+
 function deleteData(e) { 
     var t = "delete" + e, 
         a = document.getElementById(t), 
