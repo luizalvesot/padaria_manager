@@ -39,4 +39,12 @@ class Formatter
         $cep_formated = str_replace(['.', '-', '/'], '', $cep_mask);
         return $cep_formated;
     }
+
+    public static function formatMoney($money_mask)
+    {
+        $money_formated = str_replace(['.'], '', $money_mask);
+        $money_formated_final = str_replace([','], '.', $money_formated);
+        $money = number_format((double)$money_formated_final, 2, '.', '');
+        return $money;
+    }
 }

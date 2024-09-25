@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Manager\Produtos;
 
+use App\Helpers\Formatter;
 use App\Http\Controllers\Controller;
 use App\Models\Manager\Fornecedores\Fornecedor;
 use Illuminate\Http\Request;
@@ -65,6 +66,8 @@ class ProdutosController extends Controller
             'status_produto'         => 'required',
             'observacoes_produto'    => 'nullable',
         ]);
+
+        $format = new Formatter;
         
         Produto::create([
             'descricao_produto'      => $request->descricao_produto,
@@ -73,9 +76,9 @@ class ProdutosController extends Controller
             'tipo_medida'            => $request->tipo_medida,
             'fornecedor'             => $request->fornecedor,
             'quantidade_produto'     => $request->quantidade_produto,
-            'preco_custo_produto'    => $request->preco_custo_produto,
+            'preco_custo_produto'    => $format->formatMoney($request->preco_custo_produto),
             'desconto_produto'       => $request->desconto_produto,
-            'preco_venda_produto'    => $request->preco_venda_produto,
+            'preco_venda_produto'    => $format->formatMoney($request->preco_venda_produto),
             'status_produto'         => $request->status_produto,
             'observacoes_produto'    => $request->observacoes_produto,
             'hora_ultima_entrada'    => Carbon::now(),
@@ -125,6 +128,9 @@ class ProdutosController extends Controller
             'observacoes_produto'    => 'nullable',
         ]);
 
+        $format = new Formatter;
+        //dd($request->preco_custo_produto);
+
         $produto->update([
             'descricao_produto'      => $request->descricao_produto,
             'codigo_barras_produtos' => $request->codigo_barras_produto,
@@ -132,9 +138,9 @@ class ProdutosController extends Controller
             'tipo_medida'            => $request->tipo_medida,
             'fornecedor'             => $request->fornecedor,
             'quantidade_produto'     => $request->quantidade_produto,
-            'preco_custo_produto'    => $request->preco_custo_produto,
+            'preco_custo_produto'    => $format->formatMoney($request->preco_custo_produto),
             'desconto_produto'       => $request->desconto_produto,
-            'preco_venda_produto'    => $request->preco_venda_produto,
+            'preco_venda_produto'    => $format->formatMoney($request->preco_venda_produto),
             'status_produto'         => $request->status_produto,
             'observacoes_produto'    => $request->observacoes_produto,
             'hora_ultima_entrada'    => Carbon::now(),

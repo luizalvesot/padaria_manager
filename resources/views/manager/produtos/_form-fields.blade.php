@@ -84,7 +84,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="preco_custo_produto" class="text-dark"><strong>Preço de custo </strong><strong class="text-danger"> *</strong></label>
-                <input type="number" class="form-control rounded py-0 @error('preco_custo_produto') is-invalid @enderror" 
+                <input type="text" class="form-control rounded money py-0 @error('preco_custo_produto') is-invalid @enderror" 
                     id="preco_custo_produto" name="preco_custo_produto" value="{{ $produto->preco_custo_produto ?? old('preco_custo_produto') }}">
                 
                 @error('preco_custo_produto')
@@ -112,7 +112,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="preco_venda_produto" class="text-dark"><strong>Preço de venda </strong><strong class="text-danger"> *</strong></label>
-                <input type="text" class="form-control  rounded py-0 @error('preco_venda_produto') is-invalid @enderror" 
+                <input type="text" class="form-control money rounded py-0 @error('preco_venda_produto') is-invalid @enderror" 
                     id="preco_venda_produto" name="preco_venda_produto" value="{{ $produto->preco_venda_produto ?? old('preco_venda_produto') }}">
                 
                 @error('preco_venda_produto')
