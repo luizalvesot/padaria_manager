@@ -164,4 +164,16 @@ class ProdutosController extends Controller
     {
         $produto->delete();
     }
+
+    /**
+     * Route: produtos/{id}/
+     * Name: produtos.showModal
+     * Method: GET
+     **/
+    public function showModal($id)
+    {
+        $produto = Produto::findOrFail($id);
+
+        return view('livewire.manager.produtos.detalhes', compact('produto'));
+    }
 }
