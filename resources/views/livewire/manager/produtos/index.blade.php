@@ -120,8 +120,8 @@
         
         {{--@include('livewire.manager.produtos._modal')--}}
 
-        {{--<div class="pagination-sm text-dark">
+        <div class="pagination-sm text-dark">
             {{ $produtos->links() }}
-        </div>--}}
+        </div>
     </div>
 </div>
