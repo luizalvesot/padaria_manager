@@ -28,14 +28,14 @@ return new class extends Migration
                     ->on('tipo_medidas')
                     ->onDelete('restrict');
             $table->double('quantidade_produto')->nullable();
-            $table->double('preco_custo_produto');
+            $table->decimal('preco_custo_produto');
             $table->integer('desconto_produto')->nullable();
-            $table->double('preco_venda_produto');
+            $table->decimal('preco_venda_produto');
             $table->dateTime('hora_ultima_entrada')->nullable();
             $table->dateTime('hora_ultima_saida')->nullable();
             $table->double('qtd_ultima_entrada')->nullable();
             $table->double('qtd_ultima_saida')->nullable();
-            $table->boolean('status_produto');
+            $table->string('status_produto');
             $table->string('observacoes_produto')->nullable();
             $table->timestamps();
             $table->softDeletes();
