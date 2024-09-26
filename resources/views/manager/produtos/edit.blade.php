@@ -3,9 +3,13 @@
         <div class="row pt-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb"> 
-                    <li class="breadcrumb-item"><a href="{{ route('produtos.show') }}">Produtos</a></li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('produtos.show') }}">
+                            <strong class="text-primary">Produtos</strong>
+                        </a>
+                    </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        <strong>Editar</strong>
+                        Editar
                     </li>
                 </ol>
             </nav>

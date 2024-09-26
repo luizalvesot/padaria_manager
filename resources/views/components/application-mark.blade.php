@@ -4,4 +4,4 @@
 </svg-->
 
 
-<img src="images/logo1.png" width="80" alt="Padaria">
+<img src="/images/logo1.png" width="80" alt="Padaria">
