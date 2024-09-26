@@ -6,6 +6,7 @@ use App\Http\Controllers\Manager\Fornecedores\FornecedoresController;
 use App\Http\Controllers\Manager\Produtos\CategoriaProdutos\CategoriasController;
 use App\Http\Controllers\Manager\Produtos\TiposMedidas\MedidasController;
 use App\Http\Controllers\Manager\Produtos\ProdutosController;
+use App\Http\Controllers\Manager\Vendas\VendaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +23,11 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('/venda', [VendaController::class, 'show'])->name('venda');
+
 /**
  * 
- * Grupo de rotas utilizadas nas views de FORNECEDORES
+ * Grupo de rotas utilizadas nas views de PRODUTOS
  * 
  */
 Route::prefix('/produtos')->group(function(){
