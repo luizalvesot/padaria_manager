@@ -24,15 +24,22 @@
                         {{ __('Vendas mensais') }}
                     </x-nav-link>
 
-                    <x-nav-link href="{{ route('produtos.show') }}" :active="request()->routeIs('produtos.show')">
+                    <x-nav-link href="{{ route('produtos.show') }}" 
+                        :active="request()->routeIs(
+                            'produtos.show', 'produtos.create', 'produtos.edit',
+                            'medidas.show', 'medidas.create', 'medidas.edit',
+                            'categorias.show', 'categorias.create', 'categorias.edit'
+                        )">
                         {{ __('Produtos') }}
                     </x-nav-link>
 
-                    <x-nav-link href="{{ route('fornecedores.show') }}" :active="request()->routeIs('fornecedores.show')">
+                    <x-nav-link href="{{ route('fornecedores.show') }}" 
+                        :active="request()->routeIs('fornecedores.show', 'fornecedores.create', 'fornecedores.edit')">
                         {{ __('Fornecedores') }}
                     </x-nav-link>
 
-                    <x-nav-link href="{{ route('clientes.show') }}" :active="request()->routeIs('clientes.show')">
+                    <x-nav-link href="{{ route('clientes.show') }}" 
+                        :active="request()->routeIs('clientes.show', 'clientes.create', 'clientes.edit')">
                         {{ __('Clientes') }}
                     </x-nav-link>
                 </div>
