@@ -23,7 +23,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/venda', [VendaController::class, 'show'])->name('venda');
+Route::get('/vendas', [VendaController::class, 'show'])->name('vendas.show');
 
 /**
  * 
