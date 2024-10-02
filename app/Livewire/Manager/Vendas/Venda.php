@@ -16,12 +16,44 @@ class Venda extends Component
     public $selectedFormaPagamento;
     public $carrinho = [];
     public $total = 0;
+    public $searchTerm = ''; // Variável para armazenar o termo de pesquisa
+    public $barcode = ''; // Variável para armazenar o código de barras
 
-    public function mount($cliente, $produto, $formasPagamento)
+    public function mount()
     {
-        $this->clientes = $cliente;
-        $this->produtos = $produto;
-        $this->formasPagamento = $formasPagamento;
+        $this->clientes = Cliente::all();
+        $this->formasPagamento = FormasPagamento::all();
+        $this->updateProdutos(); // Carrega os produtos inicialmente
+    }
+
+    // Atualiza a lista de produtos conforme o termo de pesquisa
+    public function updateProdutos()
+    {
+        $this->produtos = Produto::where('status_produto', 'ativo')
+            ->where('descricao_produto', 'like', '%' . $this->searchTerm . '%')
+            ->orWhere('id', 'like', '%' . $this->searchTerm . '%')
+            ->get();
+    }
+
+    // Função para adicionar produto pelo código de barras
+    public function updatedBarcode()
+    {
+        $produto = Produto::where('codigo_barras_produto', $this->barcode)
+                            ->where('status_produto', 'ativo')
+                            ->first();
+        
+        if ($produto) {
+            $this->adicionarProduto($produto->id); // Adiciona o produto ao carrinho
+            $this->barcode = ''; // Limpa o campo de código de barras após adicionar o produto
+        } else {
+            session()->flash('message', 'Produto não encontrado.');
+        }
+    }
+
+    public function updatedSearchTerm()
+    {
+        // Sempre que o searchTerm for atualizado, os produtos serão filtrados
+        $this->updateProdutos();
     }
 
     public function adicionarProduto($produtoId)
