@@ -1,5 +1,5 @@
 <div>
-    <div class="row m-1 shadow-lg" style="height: 75vh;">
+    <div class="row m-1 shadow-lg" style="height: 80vh;">
         <div class="col-md-4 shadow bg-white">
             <!-- Lista de Produtos -->
             <div class="row mt-2 mb-2 mx-1 shadow p-2 bg-primary">
@@ -89,36 +89,44 @@
                     <h4 class="h4"><i class="bi bi-cart-fill"></i> Carrinho</h4>
                 </div>
                 <div class="row mx-2">
-                    <table class="table table-hover table-sm text-center my-1">
-                        <thead>
-                            <tr>
-                                <th scope="col">Produto</th>
-                                <th scope="col">Valor</th>
-                                <th scope="col">Qtd</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ( $carrinho as $index => $item )
-                            <tr>
-                                <td>{{ $item['produto']->descricao_produto }}</td>
-                                <td>R$ {{ number_format($item['preco'], 2, ',', '.') }}</td>
-                                <td>x {{ $item['quantidade'] }}</td>
-                                <td>
-                                    <button wire:click="removerProduto({{ $index }})">
-                                        <i class="bi bi-trash3-fill text-danger"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <th colspan="5">
-                                    <span class="text-danger">Nenhum produto adicionado...</span>
-                                </th>
-                            </tr>
-                        @endforelse
-                        </tbody>
-                    </table>    
+                    <div class="table-container">
+                        <table class="table table-hover table-sm text-center my-1">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Qtd</th>
+                                    <th scope="col">Produto</th>
+                                    <th scope="col">Valor</th>
+                                    <th scope="col">Adicionado em</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ( $carrinho as $index => $item )
+                                <tr>
+                                    <td class="text-center">
+                                        <input type="number" class="form-control input-qtd border rounded" wire:model.lazy="carrinho.{{ $index }}.quantidade" 
+                                                wire:change="atualizarQuantidade({{ $index }}, $event.target.value)" 
+                                                min="1" value="{{ $item['quantidade'] }}">
+                                    </td>
+                                    <td>{{ $item['produto']->descricao_produto }}</td>
+                                    <td>R$ {{ number_format($item['preco'], 2, ',', '.') }}</td>
+                                    <td>{{ $item['adicionado_em']->format('d/m/Y H:i:s') }}</td>
+                                    <td>
+                                        <button wire:click="removerProduto({{ $index }})">
+                                            <i class="bi bi-trash3-fill text-danger"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <th colspan="5">
+                                        <span class="text-danger">Nenhum produto adicionado...</span>
+                                    </th>
+                                </tr>
+                            @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="row my-3 justify-content-center">
                     <div class="col-md-3 m-1">
@@ -133,38 +141,38 @@
                             </button>
                         </div>
                     </div>
-                    <div class="col-md-3 m-1">
+                    <div class="col-md-2 m-1">
                         <div class="row text-center">
                             <strong class="text-dark">Valor pago</strong>
                         </div>
                         <div class="row">
-                            <button class="btn btn-primary py-2 px-auto rounded">
-                                <strong class="text-white">
-                                    R$ {{ 0,00 }}
-                                </strong>
+                            <button class="btn btn-primary py-1 px-2 rounded">
+                                <input type="number" class="form-control input-vlr border rounded" wire:model.lazy="valorPago" min="0" 
+                                    step="0.01" placeholder="Digite o valor pago">
                             </button>
                         </div>
                     </div>
                     <div class="col-md-3 m-1">
                         <div class="row text-center">
-                            <strong class="text-dark">Valor a pagar</strong>
+                            <strong class="text-dark">Troco</strong>
                         </div>
                         <div class="row">
                             <button class="btn btn-danger py-2 px-auto rounded">
                                 <strong class="text-white">
-                                    R$ {{ 0,00 }}
+                                    R$ {{ number_format($troco, 2, ',', '.') }}
                                 </strong>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md text-right">
-            <!-- Botão de Finalizar Venda -->
-            <button wire:click="finalizarVenda" class="btn btn-success">Finalizar Venda</button>
+            <div class="row">
+                <!-- coluna do botão de finalizar Venda -->
+                <div class="col-md text-center">
+                    <button wire:click="salvarVenda" class="btn btn-sm btn-primary px-5 mx-1">Salvar</button>
+                    <button wire:click="finalizarVenda" class="btn btn-sm btn-success px-5 mx-1">Finalizar Venda</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

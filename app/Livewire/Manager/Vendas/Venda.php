@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Manager\Produtos\Produto;
 use App\Models\manager\Clientes\Cliente;
 use App\Models\Manager\Pagamentos\FormasPagamento;
+use Carbon\Carbon;
 
 class Venda extends Component
 {
@@ -18,6 +19,8 @@ class Venda extends Component
     public $total = 0;
     public $searchTerm = ''; // Variável para armazenar o termo de pesquisa
     public $barcode = ''; // Variável para armazenar o código de barras
+    public $valorPago = 0; // Valor pago pelo cliente
+    public $troco = 0; // Troco a ser calculado
 
     public function mount()
     {
@@ -62,9 +65,20 @@ class Venda extends Component
         $this->carrinho[] = [
             'produto' => $produto,
             'quantidade' => 1,
-            'preco' => $produto->preco_venda_produto
+            'preco' => $produto->preco_venda_produto,
+            'adicionado_em' => Carbon::now() // Armazena a data e hora atuais
         ];
         $this->atualizarTotal();
+    }
+
+    public function atualizarQuantidade($index, $novaQuantidade)
+    {
+        if ($novaQuantidade > 0) {
+            $this->carrinho[$index]['quantidade'] = $novaQuantidade;
+            $this->atualizarTotal();
+        } else {
+            $this->removerProduto($index);
+        }
     }
 
     public function removerProduto($index)
@@ -79,6 +93,29 @@ class Venda extends Component
         $this->total = array_reduce($this->carrinho, function ($total, $item) {
             return $total + ($item['quantidade'] * $item['preco']);
         }, 0);
+
+        // Sempre recalcula o troco ao atualizar o total
+        $this->calcularTroco();
+    }
+
+    public function updatedValorPago($value)
+    {
+        // Quando o valor pago é atualizado, recalcula o troco
+        $this->calcularTroco();
+    }
+
+    public function calcularTroco()
+    {
+        if ($this->valorPago >= $this->total) {
+            $this->troco = $this->valorPago - $this->total;
+        } else {
+            $this->troco = 0; // Sem troco, pois o valor pago é menor que o total
+        }
+    }
+
+    public function salvarVenda()
+    {
+        // Lógica para registrar a venda no banco de dados
     }
 
     public function finalizarVenda()

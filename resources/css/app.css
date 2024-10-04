@@ -16,3 +16,18 @@
     cursor: pointer;
     opacity: 0.9;
 }
+
+.table-container {
+    height: 50vh;
+    overflow-y: auto;
+}
+
+.input-qtd {
+    height: 27px;
+    width: 120px;
+}
+
+.input-vlr {
+    height: 32px;
+    width: 130px;
+}
