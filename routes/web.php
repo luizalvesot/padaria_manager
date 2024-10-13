@@ -7,6 +7,7 @@ use App\Http\Controllers\Manager\Produtos\CategoriaProdutos\CategoriasController
 use App\Http\Controllers\Manager\Produtos\TiposMedidas\MedidasController;
 use App\Http\Controllers\Manager\Produtos\ProdutosController;
 use App\Http\Controllers\Manager\Vendas\VendaController;
+use App\Http\Controllers\Manager\Produtos\CodigoBarrasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,9 @@ Route::get('/', function () {
 
 Route::get('/vendas', [VendaController::class, 'show'])->name('vendas.show');
 
+
+Route::get('/codigo-barras-create', [CodigoBarrasController::class, 'create'])->name('codigo_barras.create');
+Route::post('/codigo-barras', [CodigoBarrasController::class, 'store'])->name('codigo_barras.store');
 /**
  * 
  * Grupo de rotas utilizadas nas views de PRODUTOS

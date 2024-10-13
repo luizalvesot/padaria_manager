@@ -15,7 +15,7 @@ class CodigoBarra extends Model
 
     protected $fillable = [
         'codigo',
-        'prodto',
+        'produto',
         'hora_entrada',
         'hora_saida',
     ];
