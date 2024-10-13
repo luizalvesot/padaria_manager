@@ -170,8 +170,8 @@
             <div class="row">
                 <!-- coluna do botão de finalizar Venda -->
                 <div class="col-md text-center">
-                    <button wire:click="salvarVenda" class="btn btn-sm btn-primary px-5 mx-1">Salvar</button>
-                    <button wire:click="finalizarVenda" class="btn btn-sm btn-success px-5 mx-1">Finalizar Venda</button>
+                    <button wire:click="salvarVenda" class="btn btn-sm btn-secondary px-5 mx-1">Salvar</button>
+                    <button wire:click="finalizarVenda" class="btn btn-sm btn-secondary px-5 mx-1">Finalizar Venda</button>
                 </div>
             </div>
         </div>
