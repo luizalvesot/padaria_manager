@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Manager\Produtos\Categorias\CategoriaProduto;
 use App\Models\Manager\Fornecedores\Fornecedor;
 use App\Models\Manager\Produtos\TiposMedidas\TipoMedida;
+use App\Models\Manager\Produtos\CodigoBarra;
 
 class Produto extends Model
 {
@@ -63,5 +64,10 @@ class Produto extends Model
     public function getTipoMedidaAttribute()
     {
         return TipoMedida::where('id', $this->attributes['tipo_medida'])->first();
+    }
+
+    public function codigosBarras()
+    {
+        return $this->hasMany(CodigoBarra::class);
     }
 }
