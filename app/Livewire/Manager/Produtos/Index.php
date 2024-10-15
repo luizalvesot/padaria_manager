@@ -5,6 +5,7 @@ namespace App\Livewire\Manager\Produtos;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Manager\Produtos\Produto;
+use App\Models\Manager\Produtos\CodigoBarra;
 
 class Index extends Component
 {
@@ -44,7 +45,11 @@ class Index extends Component
         }
 
         if($this->codigo_barras_produto){
-            $query->where('codigo_barras_produto', 'like', '%'.$this->codigo_barras_produto.'%');
+            $codigoBarra = CodigoBarra::where('codigo', $this->codigo_barras_produto)->first();
+
+            if ($codigoBarra) {
+                $query->find($codigoBarra->produto->id);
+            }
         }
 
         if($this->fornecedor_produto){
