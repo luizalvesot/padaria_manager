@@ -7,6 +7,7 @@ use App\Models\Manager\Produtos\Produto;
 use App\Models\manager\Clientes\Cliente;
 use App\Models\Manager\Pagamentos\FormasPagamento;
 use Carbon\Carbon;
+use App\Models\Manager\Produtos\CodigoBarra;
 
 class Venda extends Component
 {
@@ -48,9 +49,12 @@ class Venda extends Component
     public function updatedBarcode()
     {
         // Localiza o produto no banco de dados de acordo com o código de barras
-        $produto = Produto::where('codigo_barras_produto', $this->barcode)
+        /*$produto = Produto::where('codigo_barras_produto', $this->barcode)
                             ->where('status_produto', 'ativo')
-                            ->first();
+                            ->first();*/
+        
+        $codigoBarra = CodigoBarra::where('codigo', $this->barcode)->first();
+        $produto = Produto::find($codigoBarra->produto)->where('status_produto', 'ativo')->first();
         
         if ($produto) {
             $this->adicionarProduto($produto->id); // Chama método para adicionar o produto ao carrinho
