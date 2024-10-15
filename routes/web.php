@@ -27,7 +27,7 @@ Route::get('/', function () {
 Route::get('/vendas', [VendaController::class, 'show'])->name('vendas.show');
 
 
-Route::get('/codigo-barras-create', [CodigoBarrasController::class, 'create'])->name('codigo_barras.create');
+Route::get('/codigo-barras-create/{produto}', [CodigoBarrasController::class, 'create'])->name('codigo_barras.create');
 Route::post('/codigo-barras', [CodigoBarrasController::class, 'store'])->name('codigo_barras.store');
 /**
  * 
