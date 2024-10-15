@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container">
         <div class="row pt-3">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item active" aria-current="page">
@@ -10,12 +10,12 @@
                     </ol>
                 </nav>
             </div>
-            <div class="col-md-6">
-                <a href="{{ route('codigo_barras.create') }}" title="Cadastrar código de barras" 
+            <div class="col-md-4">
+                <!--a href="{{-- route('codigo_barras.create') --}}" title="Cadastrar código de barras" 
                     class="btn btn-sm btn-success px-3 mb-1">
                     Cadastrar cód barras
                     <i class="bi bi-plus-lg"></i>
-                </a>
+                </a-->
                 <a href="{{ route('categorias.show') }}" title="Categorias de produtos" 
                     class="btn btn-sm btn-secondary px-3 mb-1">
                     Categorias
