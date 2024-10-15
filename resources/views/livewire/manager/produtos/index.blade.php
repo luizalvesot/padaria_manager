@@ -71,8 +71,10 @@
                     <th scope="col">Categoria</th>
                     <th scope="col">Status</th>
                     <th scope="col">Última saída</th>
-                    <th scope="col">Editar</th>
-                    <th scope="col">Deletar</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -95,6 +97,12 @@
                             <button class="btn btn-primary btn-sm" title="Visualizar todos os dados do produto" data-bs-toggle="modal" data-bs-target="#produtoModal" onclick="carregarProduto({{ $produto->id }})">
                                 <i class="bi bi-eye"></i>
                             </button>
+                        </td>
+                        <td>
+                            <a class="btn btn-success btn-sm" title="Cadastrar código de barras" 
+                                href="{{ route('codigo_barras.create', $produto) }}">
+                                <i class="bi bi-upc-scan"></i>
+                            </a>
                         </td>
                         <td>
                             <a class="btn btn-dark btn-sm" title="Editar produto" href="{{ route('produtos.edit', $produto) }}">
