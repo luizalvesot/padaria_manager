@@ -11,9 +11,9 @@ use Carbon\Carbon;
 
 class CodigoBarrasController extends Controller
 {
-    public function create(){
-        $produtos = Produto::all();
-        return view('manager.produtos.codigo_barras.create', compact('produtos'));
+    public function create(Produto $produto){
+
+        return view('manager.produtos.codigo_barras.create', compact('produto'));
     }
 
     public function store(Request $request)
@@ -25,7 +25,6 @@ class CodigoBarrasController extends Controller
 
         $produto = Produto::findOrFail($request->produto);
 
-        //dd($produto->id);
         CodigoBarra::create([
             'codigo'       => $request->codigo,
             'produto'      => $produto->id,
@@ -39,7 +38,8 @@ class CodigoBarrasController extends Controller
             'success',
             'Cadastro de produtos',
             'Produto cadastrado com sucesso!',
-            'produtos.show'
+            'codigo_barras.create',
+            $produto
         );
     }
 }
