@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="container">
+    <div class="container-sm">
         <div class="row pt-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
