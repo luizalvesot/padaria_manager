@@ -6,12 +6,7 @@
             <div class="form-group">
                 <label for="produto" class="text-dark"><strong>Produto </strong><strong class="text-danger"> *</strong></label>
                 <select class="form-select rounded @error('produto') is-invalid @enderror" id="produto" name="produto">
-                    @if(Route::is('codigo_barras.create'))
-                        <option value="">Selecione  </option>
-                    @endif
-                    @foreach($produtos as $produto)
-                        <option value="{{ $produto->id }}">{{ $produto->descricao_produto }}</option>
-                    @endforeach
+                    <option value="{{ $produto->id }}">{{ $produto->descricao_produto }}</option>
                 </select>
             </div>
         </div>
