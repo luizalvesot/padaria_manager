@@ -42,6 +42,6 @@ class Venda extends Model
 
     public function produtos()
     {
-        return $this->hasMany(VendaProduto::class);
+        return $this->hasMany(AuxVenda::class);
     }
 }
