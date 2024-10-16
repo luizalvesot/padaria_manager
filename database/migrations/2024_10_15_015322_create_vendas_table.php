@@ -21,14 +21,15 @@ return new class extends Migration
             $table->dateTime('horario_abertura');
             $table->dateTime('prazo_encerramento')->nullable();
             $table->dateTime('horario_encerramento')->nullable();
-            $table->decimal('valor_total_venda');
+            $table->decimal('valor_total_venda', 10, 2);
             $table->foreignId('forma_pagamento')
                     ->references('id')
                     ->on('formas_pagamentos')
                     ->onDelete('restrict');
             $table->string('status_pagamento_venda', 30)->nullable();
-            $table->decimal('valor_receber')->nullable();
-            $table->decimal('valor_recebido')->nullable();
+            $table->decimal('valor_receber', 10, 2)->nullable();
+            $table->decimal('valor_recebido', 10, 2)->nullable();
+            $table->decimal('valor_troco', 10, 2)->nullable();
             $table->string('tipo_venda', 30);
             $table->string('observacoes_venda')->nullable();
             $table->timestamps();
