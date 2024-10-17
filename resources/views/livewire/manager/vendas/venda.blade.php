@@ -76,7 +76,7 @@
                 <!-- Prazo de pagamento -->
                 <div class="my-2 col-md-6">    
                     <label class="text-white" for="end_date"><strong>Prazo para pagamento</strong></label>
-                    <input type="datetime-local" {{--wire:model.defer="end_date"--}}
+                    <input type="datetime-local" wire:model="selectedPrazoPagamento"
                             class="form-control py-1 bordered rounded">
                 </div>
             </div>

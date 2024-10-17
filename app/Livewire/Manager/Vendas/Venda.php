@@ -8,6 +8,9 @@ use App\Models\manager\Clientes\Cliente;
 use App\Models\Manager\Pagamentos\FormasPagamento;
 use Carbon\Carbon;
 use App\Models\Manager\Produtos\CodigoBarra;
+use App\Models\Manager\Vendas\Venda AS VendaModel;
+use App\Models\Manager\Vendas\AuxVenda;
+use App\Helpers\Swal;
 
 class Venda extends Component
 {
@@ -16,12 +19,16 @@ class Venda extends Component
     public $formasPagamento;
     public $selectedCliente;
     public $selectedFormaPagamento;
+    public $selectedPrazoPagamento;
     public $carrinho = [];         // Array que armazena os produtos da compra
     public $total = 0;             // Inicializaçãoo do valor total
     public $searchTerm = '';       // Variável para armazenar o termo de pesquisa
     public $barcode = '';          // Variável para armazenar o código de barras
     public $valorPago = 0;         // Variável que recebe o valor pago pelo cliente
     public $troco = 0;             // Troco a ser calculado
+    public $saldoDevedor = 0;
+    public $vendaDescricao = '';
+    public $statusPagamento = '';
 
     public function mount()
     {
@@ -152,6 +159,7 @@ class Venda extends Component
             $this->troco = $this->valorPago - $this->total;
         } else {
             $this->troco = 0; // Sem troco, pois o valor pago é menor que o total
+            $this->saldoDevedor = $this->total - $this->valorPago;
         }
     }
 
@@ -168,7 +176,70 @@ class Venda extends Component
      */
     public function finalizarVenda()
     {
+        if (empty($this->carrinho)) {
+            session()->flash('message', 'Carrinho vazio. Adicione produtos antes de finalizar a venda.');
+            return;
+        }
+    
+        // Validação simples
+        $this->validate([
+            'selectedCliente' => 'nullable|exists:clientes,id',
+            'selectedFormaPagamento' => 'required|exists:formas_pagamentos,id',
+            //'valorPago' => 'required|numeric|min:' . $this->total
+        ]);
+
+        if($this->saldoDevedor > 0){
+            $this->statusPagamento = 'devedor';
+        } else {
+            $this->statusPagamento = 'pago';
+        }
+
+        $desCliente = Cliente::find($this->selectedCliente);
+        $desCliente1 = strtolower($desCliente->nome_cliente);
+        $desCliente2 = preg_replace('/[ -]/', '_', $desCliente1);
+        $desData = preg_replace('/[\/:]/', '_', Carbon::now()->format('d/m/Y H:i:s'));
+        $desData1 = preg_replace('/[ -]/', '_', $desData);
+        $this->vendaDescricao = $desCliente2 . '_' . $desData1; 
+    
+        // Cria a venda
+        $venda = VendaModel::create([
+            'descricao_venda'         => $this->vendaDescricao,
+            'cliente'                 => $this->selectedCliente, // chave estrangeira
+            'horario_abertura'        => Carbon::now(),
+            'prazo_encerramento'      => $this->selectedPrazoPagamento,
+            'horario_encerramento'    => Carbon::now(),
+            'valor_total_venda'       => $this->total,
+            'forma_pagamento'         => $this->selectedFormaPagamento, // chave estrangeira
+            'status_pagamento_venda'  => $this->statusPagamento,   
+            'valor_receber'           => $this->saldoDevedor,
+            'valor_recebido'          => $this->valorPago,
+            'valor_troco'             => $this->troco,
+            'tipo_venda'              => 'teste', 
+            'observacoes_venda'       => null, 
+        ]);
         
+            foreach ($this->carrinho as $item) {
+            // Salva os itens da venda
+            AuxVenda::create([
+                'venda'         => $venda->id,
+                'produto'       => $item['produto']->id,
+                'cliente'       => $venda->cliente,
+                'qtd_produto'   => $item['quantidade'],
+                'preco'         => $item['preco'],
+                'horario_venda' => $item['adicionado_em'],
+                'tipo_venda'    => 'teste',
+            ]);
+        }
+
+        // Limpa o carrinho após finalizar a venda
+        $this->reset(['carrinho', 'total', 'valorPago', 'troco', 'selectedCliente', 'selectedFormaPagamento']);
+    
+        return Swal::redirect(
+            'success',
+            'Venda finalizada',
+            '',
+            'vendas.show'
+        );
     }
 
     public function render()
