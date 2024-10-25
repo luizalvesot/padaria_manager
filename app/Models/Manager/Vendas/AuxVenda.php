@@ -27,7 +27,12 @@ class AuxVenda extends Model
 
     public function venda()
     {
-        return $this->belongsTo(Venda::class);
+        return $this->belongsTo(Venda::class, 'venda');
+    }
+
+    public function getVendaAttribute()
+    {
+        return Venda::where('id', $this->attributes['venda'])->first();
     }
 
     public function produto()
@@ -35,8 +40,13 @@ class AuxVenda extends Model
         return $this->belongsTo(Produto::class);
     }
 
+    public function getProdutoAttribute()
+    {
+        return Produto::where('id', $this->attributes['produto'])->first();
+    }
+
     public function cliente()
     {
-        return $this->belongsTo(Cliente::class);
+        return $this->belongsTo(Cliente::class, 'cliente');
     }
 }
