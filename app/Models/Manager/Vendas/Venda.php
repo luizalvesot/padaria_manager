@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Manager\Clientes\Cliente;
 use App\Models\Manager\Pagamentos\FormasPagamento;
+use App\Models\Manager\Vendas\AuxVenda;
 
 class Venda extends Model
 {
@@ -32,16 +33,26 @@ class Venda extends Model
 
     public function cliente()
     {
-        return $this->belongsTo(Cliente::class);
+        return $this->belongsTo(Cliente::class, 'cliente');
+    }
+
+    public function getClienteAttribute()
+    {
+        return Cliente::where('id', $this->attributes['cliente'])->first();
     }
 
     public function formasPagamento()
     {
-        return $this->belongsTo(FormasPagamento::class);
+        return $this->belongsTo(FormasPagamento::class, 'forma_pagamento');
+    }
+
+    public function getFormaPagamentoAttribute()
+    {
+        return FormasPagamento::where('id', $this->attributes['forma_pagamento'])->first();
     }
 
     public function produtos()
     {
-        return $this->hasMany(AuxVenda::class);
+        return $this->hasMany(AuxVenda::class, 'venda');
     }
 }
