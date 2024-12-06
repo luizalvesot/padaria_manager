@@ -11,6 +11,10 @@ use App\Models\Manager\Produtos\CodigoBarra;
 use App\Models\Manager\Vendas\Venda AS VendaModel;
 use App\Models\Manager\Vendas\AuxVenda;
 use App\Helpers\Swal;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use Mike42\Escpos\Printer;
+use Mike42\Escpos\EscposImage;
+use Exception;
 
 class Venda extends Component
 {
@@ -59,15 +63,17 @@ class Venda extends Component
         /*$produto = Produto::where('codigo_barras_produto', $this->barcode)
                             ->where('status_produto', 'ativo')
                             ->first();*/
-        
+    
         $codigoBarra = CodigoBarra::where('codigo', $this->barcode)->first();
-        $produto = Produto::find($codigoBarra->produto)->where('status_produto', 'ativo')->first();
+        $produto = Produto::where('id', $codigoBarra->produto->id)
+                            ->where('status_produto', 'ativo')->first();
         
         if ($produto) {
             $this->adicionarProduto($produto->id); // Chama método para adicionar o produto ao carrinho
             $this->barcode = ''; // Limpa o campo de código de barras após adicionar o produto
         } else {
             session()->flash('message', 'Produto não encontrado.');
+            $this->barcode = '';
         }
     }
 
@@ -155,13 +161,17 @@ class Venda extends Component
      */
     public function calcularTroco()
     {
-        if ($this->valorPago >= $this->total) {
+        if ($this->valorPago >= $this->total) 
+        {
             $this->troco = $this->valorPago - $this->total;
+            $this->saldoDevedor = 0;
         } else {
             $this->troco = 0; // Sem troco, pois o valor pago é menor que o total
             $this->saldoDevedor = $this->total - $this->valorPago;
         }
     }
+
+   
 
     /**
      * Método utilizado para salvar a venda no banco de dados
@@ -177,15 +187,17 @@ class Venda extends Component
     public function finalizarVenda()
     {
         if (empty($this->carrinho)) {
-            session()->flash('message', 'Carrinho vazio. Adicione produtos antes de finalizar a venda.');
-            return;
+            return Swal::redirect(
+                'warning',
+                'Carrinho vazio',
+                'Adicione produtos antes de finalizar a venda.',
+                'vendas.show'
+            );
         }
     
-        // Validação simples
         $this->validate([
-            'selectedCliente' => 'nullable|exists:clientes,id',
-            'selectedFormaPagamento' => 'required|exists:formas_pagamentos,id',
-            //'valorPago' => 'required|numeric|min:' . $this->total
+            'carrinho'  => 'required',
+            'valorPago' => 'required'
         ]);
 
         if($this->saldoDevedor > 0){
@@ -215,18 +227,18 @@ class Venda extends Component
             'valor_recebido'          => $this->valorPago,
             'valor_troco'             => $this->troco,
             'tipo_venda'              => 'teste', 
-            'observacoes_venda'       => null, 
+            'observacoes_venda'       => null,
         ]);
         
-            foreach ($this->carrinho as $item) {
+        foreach ($this->carrinho as $item) {
             // Salva os itens da venda
             AuxVenda::create([
                 'venda'         => $venda->id,
                 'produto'       => $item['produto']->id,
-                'cliente'       => $venda->cliente,
+                'cliente'       => $venda->cliente->id,
                 'qtd_produto'   => $item['quantidade'],
                 'preco'         => $item['preco'],
-                'horario_venda' => $item['adicionado_em'],
+                'horario_venda' => '2024-10-28 00:00:00',
                 'tipo_venda'    => 'teste',
             ]);
         }
@@ -234,12 +246,98 @@ class Venda extends Component
         // Limpa o carrinho após finalizar a venda
         $this->reset(['carrinho', 'total', 'valorPago', 'troco', 'selectedCliente', 'selectedFormaPagamento']);
     
+        //$this->imprimir($venda->id);
+
+        $this->saldoDevedor = 0;
+
         return Swal::redirect(
             'success',
             'Venda finalizada',
             '',
             'vendas.show'
         );
+    }
+
+    public function imprimir($vendaId)
+    {
+        // Recupera a venda e os itens da venda
+        $venda = VendaModel::find($vendaId);
+        
+        //dd($venda->produtos);
+
+        // Tente enviar o cupom para a impressora
+        try {
+            // Nome da impressora (pode variar de acordo com o sistema operacional)
+            $nomeImpressora = "Cupom"; // Nome configurado para a impressora no seu sistema
+
+            // Conexão com a impressora
+            $connector = new WindowsPrintConnector($nomeImpressora);
+            $printer = new Printer($connector);
+
+            // Início do cupom
+            $printer->setJustification(Printer::JUSTIFY_CENTER);
+            $printer->text("Padaria e Conveniência Novo Pão\n");
+            $printer->text("Rua João Pedro Anunciação, 396\n");
+            $printer->text("Botelhos - MG\n");
+            $printer->text("Telefone: (35) 99842-3938\n");
+            $printer->feed();
+
+            $printer->text("------------------------------------------------\n");
+
+            // Exibe informações do cliente (se houver)
+            if ($venda->cliente) {
+                $printer->setJustification(Printer::JUSTIFY_LEFT);
+                $printer->text("Cliente: " . $venda->cliente->nome_cliente . "\n");
+            }
+
+            // Data da venda
+            $printer->text("Data: " . $venda->created_at->format('d/m/Y H:i:s') . "\n");
+            $printer->text("Forma de Pagamento: " . $venda->forma_pagamento->descricao_fpagamento . "\n");
+
+            $printer->text("------------------------------------------------\n");
+
+            // Exibe os produtos
+            foreach ($venda->produtos as $item) {
+                $produto = $item->produto;
+                $printer->text($produto->descricao_produto . "  - ");
+                $printer->text(" " . $item->qtd_produto . " x R$ " . number_format($item->preco, 2, ',', '.') . "\n");
+            }
+
+            $printer->text("------------------------------------------------\n");
+
+            // Exibe o total, valor pago e troco
+            $printer->setJustification(Printer::JUSTIFY_RIGHT);
+            $printer->text("TOTAL: R$ " . number_format($venda->valor_total_venda, 2, ',', '.') . "\n");
+            $printer->text("Pago: R$ " . number_format($venda->valor_recebido, 2, ',', '.') . "\n");
+            $printer->text("Troco: R$ " . number_format($venda->valor_troco, 2, ',', '.') . "\n");
+
+            $printer->feed(2); // Alimenta o papel (pula algumas linhas)
+            $printer->text("Obrigado pela preferência!\n");
+            $printer->feed(2);
+
+            // Corta o papel
+            $printer->cut();
+
+            // Fecha a conexão com a impressora
+            $printer->close();
+
+            return Swal::redirect(
+                'success',
+                'Venda finalizada',
+                'Cupom impresso com sucesso!',
+                'vendas.show'
+            );
+            //return response()->json(['message' => 'Cupom impresso com sucesso!']);
+        } catch (Exception $e) {
+            // Tratamento de erro
+            return Swal::redirect(
+                'error',
+                'Falha ao imprimir',
+                $e->getMessage(),
+                'vendas.show'
+            );
+            //return response()->json(['error' => 'Erro ao imprimir o cupom: ' . $e->getMessage()], 500);
+        }
     }
 
     public function render()
