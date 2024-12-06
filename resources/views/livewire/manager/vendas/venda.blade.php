@@ -2,7 +2,7 @@
     <div class="row m-1 shadow-lg" style="height: 80vh;">
         <div class="col-md-4 shadow bg-white">
             <!-- Lista de Produtos -->
-            <div class="row mt-2 mb-2 mx-1 shadow p-2 bg-primary">
+            <div class="row mt-2 mb-2 mx-1 shadow p-2" style="background-color: rgb(127, 146, 255)">
                 <strong class="h5 text-white mb-3">Adicionar produtos</strong>
                 <div>
                     <label class="text-white"><strong>Pesquisa: </strong></label>
@@ -51,7 +51,7 @@
                     @endif
                 </div>
             </div>
-            <div class="row shadow p-2 mx-1 mb-2 bg-secondary">
+            <div class="row shadow p-2 mx-1 mb-2" style="background-color: rgba(185, 123, 123, 0.795)">
                 <!-- Seleção do Cliente -->
                 <div>
                     <label for="cliente" class="text-white"><strong>Cliente</strong></label>
