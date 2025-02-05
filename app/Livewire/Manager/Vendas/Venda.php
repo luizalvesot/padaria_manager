@@ -340,6 +340,51 @@ class Venda extends Component
         }
     }
 
+    public function editarVenda($vendaId)
+{
+    // Recupera a venda pelo ID
+    $venda = VendaModel::with('produtos.produto')->find($vendaId);
+
+    if (!$venda) {
+        return Swal::redirect(
+            'error',
+            'Venda não encontrada',
+            'Não foi possível localizar a venda.',
+            'vendas.show'
+        );
+    }
+
+    // Carrega os dados da venda para o componente
+    $this->selectedCliente = $venda->cliente;
+    $this->selectedFormaPagamento = $venda->forma_pagamento;
+    $this->selectedPrazoPagamento = $venda->prazo_encerramento;
+    $this->valorPago = $venda->valor_recebido;
+    $this->troco = $venda->valor_troco;
+    $this->saldoDevedor = $venda->valor_receber;
+    $this->vendaDescricao = $venda->descricao_venda;
+
+    // Carrega os produtos da venda no carrinho
+    $this->carrinho = $venda->produtos->map(function ($auxVenda) {
+        return [
+            'produto'       => $auxVenda->produto,
+            'quantidade'    => $auxVenda->qtd_produto,
+            'preco'         => $auxVenda->preco,
+            'adicionado_em' => $auxVenda->horario_venda,
+        ];
+    })->toArray();
+
+    // Atualiza o total do carrinho
+    $this->atualizarTotal();
+
+    return Swal::redirect(
+        'success',
+        'Edição iniciada',
+        'Os dados da venda foram carregados para edição.',
+        ''
+    );
+}
+
+
     public function render()
     {
         return view('livewire.manager.vendas.venda');
