@@ -25,6 +25,8 @@ Route::get('/', function () {
 });
 
 Route::get('/vendas', [VendaController::class, 'show'])->name('vendas.show');
+Route::get('/vendas/{id}', [VendaController::class, 'showModal'])->name('vendas.showModal');
+Route::get('/vendas/editar/{id}', [VendaController::class, 'editar'])->name('vendas.editar');
 
 
 Route::get('/codigo-barras-create/{produto}', [CodigoBarrasController::class, 'create'])->name('codigo_barras.create');
@@ -48,6 +50,15 @@ Route::prefix('/produtos')->group(function(){
     Route::delete('/{produto}', [ProdutosController::class, 'destroy'])->name('produtos.destroy');
 
     Route::get('/{id}', [ProdutosController::class, 'showModal'])->name('produtos.showModal');
+});
+
+/**
+ * 
+ * Grupo de rotas utilizadas nas views de LISTAGEM DE VENDAS
+ * 
+ */
+Route::prefix('/listagem')->group(function(){
+    Route::get('/', [VendaController::class, 'listar'])->name('listagem.show');
 });
 
 /**
