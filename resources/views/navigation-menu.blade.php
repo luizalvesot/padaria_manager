@@ -16,12 +16,12 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link href="{{-- route('vendas.show') --}}" {{--:active="request()->routeIs('vendas.show')"--}}>
-                        {{ __('Vendas') }}
+                    <x-nav-link href="{{ route('listagem.show') }}" :active="request()->routeIs('listagem.show')">
+                        {{ __('Listagem de vendas') }}
                     </x-nav-link>
 
                     <x-nav-link href="{{ route('vendas.show') }}" :active="request()->routeIs('vendas.show')">
-                        {{ __('Vendas mensais') }}
+                        {{ __('Vendas') }}
                     </x-nav-link>
 
                     <x-nav-link href="{{ route('produtos.show') }}" 
