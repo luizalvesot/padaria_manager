@@ -4,7 +4,7 @@ namespace App\Models\Manager\Vendas;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Manager\Clientes\Cliente;
 use App\Models\Manager\Pagamentos\FormasPagamento;
 use App\Models\Manager\Vendas\AuxVenda;
