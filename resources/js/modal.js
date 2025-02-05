@@ -43,6 +43,21 @@ function carregarProduto(id) {
 
 window.carregarProduto = carregarProduto;
 
+function carregarVenda(id) {
+    $.ajax({
+        url: '/vendas/' + id, // Ajuste a URL conforme necessário
+        type: 'GET',
+        success: function(data) {
+            $('#vendaDetalhes').html(data);
+        },
+        error: function() {
+            $('#vendaDetalhes').html('Erro ao carregar os detalhes da venda.');
+        }
+    });
+}
+
+window.carregarVenda = carregarVenda;
+
 function deleteData(e) { 
     var t = "delete" + e, 
         a = document.getElementById(t), 
