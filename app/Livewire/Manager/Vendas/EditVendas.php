@@ -5,7 +5,7 @@ namespace App\Livewire\Manager\Vendas;
 use Livewire\Component;
 
 use App\Models\Manager\Produtos\Produto;
-use App\Models\manager\Clientes\Cliente;
+use App\Models\Manager\Clientes\Cliente;
 use App\Models\Manager\Pagamentos\FormasPagamento;
 use Carbon\Carbon;
 use App\Models\Manager\Produtos\CodigoBarra;
