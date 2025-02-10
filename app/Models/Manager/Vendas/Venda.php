@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Manager\Clientes\Cliente;
 use App\Models\Manager\Pagamentos\FormasPagamento;
 use App\Models\Manager\Vendas\AuxVenda;
+use App\Models\Manager\Produtos\Produto;
 
 class Venda extends Model
 {
@@ -17,13 +18,14 @@ class Venda extends Model
 
     protected $fillable = [
         'descricao_venda',
-        'cliente', // chave estrangeira
+        'cliente_id', // chave estrangeira
         'horario_abertura',
         'prazo_encerramento',
         'horario_encerramento',
         'valor_total_venda',
-        'forma_pagamento', // chave estrangeira
+        'forma_pagamento_id', // chave estrangeira
         'status_pagamento_venda',
+        'status_venda',
         'valor_receber',
         'valor_recebido',
         'valor_troco',
@@ -33,13 +35,13 @@ class Venda extends Model
 
     public function cliente()
     {
-        return $this->belongsTo(Cliente::class, 'cliente');
+        return $this->belongsTo(Cliente::class, 'cliente_id');
     }
 
-    public function getClienteAttribute()
+    /*public function getClienteAttribute()
     {
         return Cliente::where('id', $this->attributes['cliente'])->first();
-    }
+    }*/
 
     public function formasPagamento()
     {
@@ -48,11 +50,12 @@ class Venda extends Model
 
     public function getFormaPagamentoAttribute()
     {
-        return FormasPagamento::where('id', $this->attributes['forma_pagamento'])->first();
+        return FormasPagamento::where('id', $this->attributes['forma_pagamento_id'])->first();
     }
 
-    public function produtos()
+
+    public function auxVendas()
     {
-        return $this->hasMany(AuxVenda::class, 'venda');
+        return $this->hasMany(AuxVenda::class, 'venda_id');
     }
 }
