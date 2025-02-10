@@ -13,15 +13,15 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Home') }}
                     </x-nav-link>
 
-                    <x-nav-link href="{{ route('listagem.show') }}" :active="request()->routeIs('listagem.show')">
-                        {{ __('Listagem de vendas') }}
-                    </x-nav-link>
-
-                    <x-nav-link href="{{ route('vendas.show') }}" :active="request()->routeIs('vendas.show')">
+                    <x-nav-link class="text-primary" href="{{ route('vendas.show') }}" :active="request()->routeIs('vendas.show')">
                         {{ __('Vendas') }}
+                    </x-nav-link>
+
+                    <x-nav-link class="text-primary" href="{{ route('listagem.show') }}" :active="request()->routeIs('listagem.show')">
+                        {{ __('Listagem de vendas') }}
                     </x-nav-link>
 
                     <x-nav-link href="{{ route('produtos.show') }}" 
