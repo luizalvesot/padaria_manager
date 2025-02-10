@@ -330,7 +330,57 @@ class EditVendas extends Component
             // Nome da impressora (pode variar de acordo com o sistema operacional)
             $nomeImpressora = "Cupom"; // Nome configurado para a impressora no seu sistema
 
-           
+            // Conexão com a impressora
+            $connector = new WindowsPrintConnector($nomeImpressora);
+            $printer = new Printer($connector);
+
+            // Início do cupom
+            $printer->setJustification(Printer::JUSTIFY_CENTER);
+            $printer->text("Padaria e Conveniência Novo Pão\n");
+            $printer->text("Rua João Pedro Anunciação, 396\n");
+            $printer->text("Botelhos - MG\n");
+            $printer->text("Telefone: (35) 99842-3938\n");
+            $printer->feed();
+
+            $printer->text("------------------------------------------------\n");
+
+            // Exibe informações do cliente (se houver)
+            if ($venda->cliente) {
+                $printer->setJustification(Printer::JUSTIFY_LEFT);
+                $printer->text("Cliente: " . $venda->cliente->nome_cliente . "\n");
+            }
+
+            // Data da venda
+            $printer->text("Data: " . $venda->horario_encerramento . "\n");
+            $printer->text("Forma de Pagamento: " . $venda->forma_pagamento->descricao_fpagamento . "\n");
+
+            $printer->text("------------------------------------------------\n");
+
+            // Exibe os produtos
+            foreach ($venda->auxVendas as $item) {
+                $produto = $item->produto;
+                $printer->text($produto->descricao_produto . "  - ");
+                $printer->text(" " . $item->qtd_produto . " x R$ " . number_format($item->preco, 2, ',', '.') . "\n");
+            }
+
+            $printer->text("------------------------------------------------\n");
+
+            // Exibe o total, valor pago e troco
+            $printer->setJustification(Printer::JUSTIFY_RIGHT);
+            $printer->text("TOTAL: R$ " . number_format($venda->valor_total_venda, 2, ',', '.') . "\n");
+            $printer->text("Pago: R$ " . number_format($venda->valor_recebido, 2, ',', '.') . "\n");
+            $printer->text("Troco: R$ " . number_format($venda->valor_troco, 2, ',', '.') . "\n");
+
+            $printer->feed(2); // Alimenta o papel (pula algumas linhas)
+            $printer->text("Obrigado pela preferência!\n");
+            $printer->feed(2);
+
+            // Corta o papel
+            $printer->cut();
+
+            // Fecha a conexão com a impressora
+            $printer->close();
+
             return $this->dispatch('swal',
                 title: 'Venda impressa',
                 text: 'A venda foi impressa corretamente!',
