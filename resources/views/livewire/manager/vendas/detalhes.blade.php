@@ -73,7 +73,7 @@
             </table>
             <div class="row">
                 <div class="col-md-4">
-                    <a href="{{-- route('vendas.edit', $venda) --}}" class="btn btn-sm btn-success px-auto">Editar venda</a>
+                    <a href="{{ route('vendas.editar', ['id' => $venda->id]) }}" class="btn btn-sm btn-danger">Editar</a>
                 </div>
             </div>
         </div>
