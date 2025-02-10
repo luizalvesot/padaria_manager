@@ -16,9 +16,9 @@ class AuxVenda extends Model
     protected $table = 'aux_vendas';
 
     protected $fillable = [
-        'venda', // chave estrangeira
-        'produto', // chave estrangeira
-        'cliente', // chave estrangeira
+        'venda_id', // chave estrangeira
+        'produto_id', // chave estrangeira
+        'cliente_id', // chave estrangeira
         'qtd_produto',
         'preco',
         'horario_venda',
@@ -27,26 +27,26 @@ class AuxVenda extends Model
 
     public function venda()
     {
-        return $this->belongsTo(Venda::class, 'venda');
+        return $this->belongsTo(Venda::class, 'venda_id');
     }
 
-    public function getVendaAttribute()
+    /*public function getVendaAttribute()
     {
         return Venda::where('id', $this->attributes['venda'])->first();
-    }
+    }*/
 
     public function produto()
     {
-        return $this->belongsTo(Produto::class);
+        return $this->belongsTo(Produto::class, 'produto_id');
     }
 
-    public function getProdutoAttribute()
+    /*public function getProdutoAttribute()
     {
         return Produto::where('id', $this->attributes['produto'])->first();
-    }
+    }*/
 
     public function cliente()
     {
-        return $this->belongsTo(Cliente::class, 'cliente');
+        return $this->belongsTo(Cliente::class, 'cliente_id');
     }
 }
