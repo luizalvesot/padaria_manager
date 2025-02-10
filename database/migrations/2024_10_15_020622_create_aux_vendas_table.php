@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('aux_vendas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('venda')
+            $table->foreignId('venda_id')
                     ->references('id')
                     ->on('vendas')
                     ->onDelete('restrict');
-            $table->foreignId('produto')
+            $table->foreignId('produto_id')
                     ->references('id')
                     ->on('produtos')
                     ->onDelete('restrict');
-            $table->foreignId('cliente')
+            $table->foreignId('cliente_id')
                     ->references('id')
                     ->on('clientes')
                     ->onDelete('restrict');
