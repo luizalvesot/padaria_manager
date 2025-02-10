@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use Carbon\Carbon;
+
 class Formatter
 {
     public static function formatCpf($cpf_mask)
@@ -46,5 +48,14 @@ class Formatter
         $money_formated_final = str_replace([','], '.', $money_formated);
         $money = number_format((double)$money_formated_final, 2, '.', '');
         return $money;
+    }
+
+    public static function formatDescricaoVenda($nome_cliente) {
+        $des_cliente1 = strtolower($nome_cliente);
+        $des_cliente2 = preg_replace('/[ -]/', '_', $des_cliente1);
+        $des_data = preg_replace('/[\/:]/', '_', Carbon::now()->format('d/m/Y H:i:s'));
+        $des_data1 = preg_replace('/[ -]/', '_', $des_data);
+
+        return $des_cliente2 . '_' . $des_data1;
     }
 }
