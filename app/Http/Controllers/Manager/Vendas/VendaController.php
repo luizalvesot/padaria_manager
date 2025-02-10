@@ -31,8 +31,11 @@ class VendaController extends Controller
 
     public function editar($id)
     {
+        $vendaId = $id;
         $venda = Venda::findOrFail($id);
-        return view('livewire.manager.vendas.venda', compact('venda'));
+        $clienteId = $venda->cliente_id;
+
+        return view('manager.vendas.edit_venda', compact('vendaId', 'clienteId'));
     }
     /**
      * Route: vendas/{id}/
