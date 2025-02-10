@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('vendas', function (Blueprint $table) {
             $table->id();
             $table->string('descricao_venda', 100);
-            $table->foreignId('cliente')
+            $table->foreignId('cliente_id')
                     ->references('id')
                     ->on('clientes')
                     ->onDelete('restrict');
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->dateTime('prazo_encerramento')->nullable();
             $table->dateTime('horario_encerramento')->nullable();
             $table->decimal('valor_total_venda', 10, 2);
-            $table->foreignId('forma_pagamento')
+            $table->foreignId('forma_pagamento_id')
                     ->references('id')
                     ->on('formas_pagamentos')
                     ->onDelete('restrict');
