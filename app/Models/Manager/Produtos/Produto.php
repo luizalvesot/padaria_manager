@@ -9,6 +9,7 @@ use App\Models\Manager\Produtos\Categorias\CategoriaProduto;
 use App\Models\Manager\Fornecedores\Fornecedor;
 use App\Models\Manager\Produtos\TiposMedidas\TipoMedida;
 use App\Models\Manager\Produtos\CodigoBarra;
+use App\Models\Manager\Vendas\AuxVenda;
 
 class Produto extends Model
 {
@@ -35,6 +36,11 @@ class Produto extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function vendas()
+    {
+        return $this->hasMany(AuxVenda::class, 'produto', 'id');
+    }
 
     public function tipo_medidas()
     {
