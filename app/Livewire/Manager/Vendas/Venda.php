@@ -11,6 +11,7 @@ use App\Models\Manager\Produtos\CodigoBarra;
 use App\Models\Manager\Vendas\Venda AS VendaModel;
 use App\Models\Manager\Vendas\AuxVenda;
 use App\Helpers\Swal;
+use App\Helpers\Formatter;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\EscposImage;
@@ -22,7 +23,7 @@ class Venda extends Component
     public $produtos;
     public $formasPagamento;
     public $selectedCliente;
-    public $selectedFormaPagamento;
+    public $selectedFormaPagamento = 1;
     public $selectedPrazoPagamento;
     public $carrinho = [];         // Array que armazena os produtos da compra
     public $total = 0;             // Inicializaçãoo do valor total
@@ -33,6 +34,10 @@ class Venda extends Component
     public $saldoDevedor = 0;
     public $vendaDescricao = '';
     public $statusPagamento = '';
+    public $isFiado = false;
+    public $tipoVenda = '';
+    public $horarioEncerramento;
+    public $statusVenda = 'aberto';
 
     public function mount()
     {
@@ -178,7 +183,83 @@ class Venda extends Component
      */
     public function salvarVenda()
     {
-        
+        // Verifica se o carrinho está vazio
+        if (empty($this->carrinho)) {
+            return Swal::redirect(
+                'warning',
+                'Carrinho vazio',
+                'Adicione produtos antes de finalizar a venda.',
+                'vendas.show'
+            );
+        }
+
+        // Define o tipo da venda
+        if ($this->isFiado) {
+            $this->tipoVenda = 'fiado';
+            $this->horarioEncerramento = null;
+            
+            // Formatar descrição da venda
+            $objCliente = Cliente::find($this->selectedCliente);
+            $this->vendaDescricao = Formatter::formatDescricaoVenda($objCliente->nome_cliente);
+        } else {
+            $this->tipoVenda = 'normal';
+            $this->horarioEncerramento = Carbon::now();
+
+            // Formatar descrição da venda
+            $objCliente = Cliente::where('nome_cliente', 'generico')->first();
+            $this->vendaDescricao = Formatter::formatDescricaoVenda($objCliente->nome_cliente);
+            $this->selectedCliente = $objCliente->id;
+        }
+
+        // Define o status do pagamento
+        if ($this->saldoDevedor > 0) {
+            $this->statusPagamento = 'devedor';
+        } else {
+            $this->statusPagamento = 'pago';
+        }
+
+        // Criar a venda
+        $venda = VendaModel::create([
+            'descricao_venda'        => $this->vendaDescricao,
+            'cliente_id'             => $this->selectedCliente, // chave estrangeira
+            'horario_abertura'       => Carbon::now(),
+            'prazo_encerramento'     => $this->selectedPrazoPagamento,
+            'horario_encerramento'   => $this->horarioEncerramento,
+            'valor_total_venda'      => $this->total,
+            'forma_pagamento_id'     => $this->selectedFormaPagamento, // chave estrangeira
+            'status_pagamento_venda' => $this->statusPagamento,
+            'status_venda'           => $this->statusVenda,
+            'valor_receber'          => $this->saldoDevedor,
+            'valor_recebido'         => $this->valorPago,
+            'valor_troco'            => $this->troco,
+            'tipo_venda'             => $this->tipoVenda,
+            'observacoes_venda'      => null,
+        ]);
+
+        // Verifica se a venda foi criada com sucesso
+        if (!$venda) {
+            return false;
+        }
+
+        // Salvar os itens no AuxVenda
+        foreach ($this->carrinho as $item) {
+            AuxVenda::create([
+                'venda_id'      => $venda->id,
+                'produto_id'    => $item['produto']->id,
+                'cliente_id'    => $venda->cliente->id,
+                'qtd_produto'   => $item['quantidade'],
+                'preco'         => $item['preco'],
+                'horario_venda' => Carbon::now(),
+                'tipo_venda'    => $this->tipoVenda,
+            ]);
+        }
+
+        return Swal::redirect(
+            'success',
+            'Venda salva com sucesso',
+            '',
+            'vendas.show'
+        );
     }
 
     /**
@@ -200,47 +281,18 @@ class Venda extends Component
             'valorPago' => 'required'
         ]);
 
-        if($this->saldoDevedor > 0){
-            $this->statusPagamento = 'devedor';
-        } else {
-            $this->statusPagamento = 'pago';
-        }
+        $this->statusVenda = 'finalizada';
 
-        $desCliente = Cliente::find($this->selectedCliente);
-        $desCliente1 = strtolower($desCliente->nome_cliente);
-        $desCliente2 = preg_replace('/[ -]/', '_', $desCliente1);
-        $desData = preg_replace('/[\/:]/', '_', Carbon::now()->format('d/m/Y H:i:s'));
-        $desData1 = preg_replace('/[ -]/', '_', $desData);
-        $this->vendaDescricao = $desCliente2 . '_' . $desData1; 
-    
-        // Cria a venda
-        $venda = VendaModel::create([
-            'descricao_venda'         => $this->vendaDescricao,
-            'cliente'                 => $this->selectedCliente, // chave estrangeira
-            'horario_abertura'        => Carbon::now(),
-            'prazo_encerramento'      => $this->selectedPrazoPagamento,
-            'horario_encerramento'    => Carbon::now(),
-            'valor_total_venda'       => $this->total,
-            'forma_pagamento'         => $this->selectedFormaPagamento, // chave estrangeira
-            'status_pagamento_venda'  => $this->statusPagamento,   
-            'valor_receber'           => $this->saldoDevedor,
-            'valor_recebido'          => $this->valorPago,
-            'valor_troco'             => $this->troco,
-            'tipo_venda'              => 'teste', 
-            'observacoes_venda'       => null,
-        ]);
-        
-        foreach ($this->carrinho as $item) {
-            // Salva os itens da venda
-            AuxVenda::create([
-                'venda'         => $venda->id,
-                'produto'       => $item['produto']->id,
-                'cliente'       => $venda->cliente->id,
-                'qtd_produto'   => $item['quantidade'],
-                'preco'         => $item['preco'],
-                'horario_venda' => '2024-10-28 00:00:00',
-                'tipo_venda'    => 'teste',
-            ]);
+        // Tenta salvar a venda
+        $venda = $this->salvarVenda();
+
+        if (!$venda) {
+            return Swal::redirect(
+                'error',
+                'Erro ao finalizar a venda',
+                'Tente novamente mais tarde.',
+                'vendas.show'
+            );
         }
 
         // Limpa o carrinho após finalizar a venda
@@ -339,51 +391,6 @@ class Venda extends Component
             //return response()->json(['error' => 'Erro ao imprimir o cupom: ' . $e->getMessage()], 500);
         }
     }
-
-    public function editarVenda($vendaId)
-{
-    // Recupera a venda pelo ID
-    $venda = VendaModel::with('produtos.produto')->find($vendaId);
-
-    if (!$venda) {
-        return Swal::redirect(
-            'error',
-            'Venda não encontrada',
-            'Não foi possível localizar a venda.',
-            'vendas.show'
-        );
-    }
-
-    // Carrega os dados da venda para o componente
-    $this->selectedCliente = $venda->cliente;
-    $this->selectedFormaPagamento = $venda->forma_pagamento;
-    $this->selectedPrazoPagamento = $venda->prazo_encerramento;
-    $this->valorPago = $venda->valor_recebido;
-    $this->troco = $venda->valor_troco;
-    $this->saldoDevedor = $venda->valor_receber;
-    $this->vendaDescricao = $venda->descricao_venda;
-
-    // Carrega os produtos da venda no carrinho
-    $this->carrinho = $venda->produtos->map(function ($auxVenda) {
-        return [
-            'produto'       => $auxVenda->produto,
-            'quantidade'    => $auxVenda->qtd_produto,
-            'preco'         => $auxVenda->preco,
-            'adicionado_em' => $auxVenda->horario_venda,
-        ];
-    })->toArray();
-
-    // Atualiza o total do carrinho
-    $this->atualizarTotal();
-
-    return Swal::redirect(
-        'success',
-        'Edição iniciada',
-        'Os dados da venda foram carregados para edição.',
-        ''
-    );
-}
-
 
     public function render()
     {
