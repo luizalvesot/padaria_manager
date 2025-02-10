@@ -51,16 +51,14 @@
                     @endif
                 </div>
             </div>
-            <div class="row shadow p-2 mx-1 mb-2" style="background-color: rgba(185, 123, 123, 0.795)">
-                <!-- Seleção do Cliente -->
-                <div>
-                    <label for="cliente" class="text-white"><strong>Cliente</strong></label>
-                    <select wire:model="selectedCliente" class="form-select border rounded py-1">
-                        <option value="">Selecione um cliente</option>
-                        @foreach ($clientes as $cliente)
-                            <option value="{{ $cliente->id }}">{{ $cliente->nome_cliente.' | '.$cliente->telefone_celular_cliente }}</option>
-                        @endforeach
-                    </select>
+            <div class="row shadow p-2 mx-1 mb-2" style="background-color: rgba(133, 185, 123, 0.795)">
+                <!-- Seleção do tipo de venda -->
+                <div class="mb-2">
+                    <label class="text-white"><strong>Venda Fiado?</strong></label>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="fiadoCheck" wire:model.lazy="isFiado">
+                        <label class="form-check-label text-white" for="fiadoCheck">Marque se a venda for fiado</label>
+                    </div>
                 </div>
 
                 <!-- Seleção da Forma de Pagamento -->
@@ -73,12 +71,26 @@
                         @endforeach
                     </select>
                 </div>
-                <!-- Prazo de pagamento -->
-                <div class="my-2 col-md-6">    
-                    <label class="text-white" for="end_date"><strong>Prazo para pagamento</strong></label>
-                    <input type="datetime-local" wire:model="selectedPrazoPagamento"
-                            class="form-control py-1 bordered rounded">
-                </div>
+
+                @if ($isFiado === true)
+                    <!-- Seleção do Cliente -->
+                    <div>
+                        <label for="cliente" class="text-white"><strong>Cliente</strong></label>
+                        <select wire:model="selectedCliente" class="form-select border rounded py-1">
+                            <option value="">Selecione um cliente</option>
+                            @foreach ($clientes as $cliente)
+                                <option value="{{ $cliente->id }}">{{ $cliente->nome_cliente.' | '.$cliente->telefone_celular_cliente }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Prazo de pagamento -->
+                    <div class="my-2 col-md-6">    
+                        <label class="text-white" for="end_date"><strong>Prazo para pagamento</strong></label>
+                        <input type="datetime-local" wire:model="selectedPrazoPagamento"
+                                class="form-control py-1 bordered rounded">
+                    </div>                    
+                @endif
             </div>
         </div>
 
@@ -135,7 +147,7 @@
                             <strong class="text-dark">Total</strong>
                         </div>
                         <div class="row">
-                            <button class="btn btn-info py-2 px-auto rounded">
+                            <button class="btn btn-dark py-2 px-auto rounded">
                                 <strong class="text-white">
                                     R$ {{ number_format($total, 2, ',', '.') }}
                                 </strong>
@@ -147,7 +159,7 @@
                             <strong class="text-dark">Valor pago</strong>
                         </div>
                         <div class="row">
-                            <button class="btn btn-primary py-1 px-2 rounded">
+                            <button class="btn btn-dark py-1 px-2 rounded">
                                 <input type="number" class="form-control input-vlr border rounded" wire:model.lazy="valorPago" min="0" 
                                     step="0.01" placeholder="Digite o valor pago">
                             </button>
@@ -158,7 +170,7 @@
                             <strong class="text-dark">Troco</strong>
                         </div>
                         <div class="row">
-                            <button class="btn btn-danger py-2 px-auto rounded">
+                            <button class="btn btn-dark py-2 px-auto rounded">
                                 <strong class="text-white">
                                     R$ {{ number_format($troco, 2, ',', '.') }}
                                 </strong>
@@ -167,12 +179,34 @@
                     </div>
                 </div>
             </div>
+            <hr class="secondary py-2">
             <div class="row">
                 <!-- coluna do botão de finalizar Venda -->
                 <div class="col-md text-center">
-                    <button wire:click="salvarVenda" class="btn btn-sm btn-secondary px-5 mx-1">Salvar</button>
-                    <button wire:click="finalizarVenda" class="btn btn-sm btn-secondary px-5 mx-1">Finalizar Venda</button>
+                    @if ($isFiado === true)
+                        <button wire:click="salvarVenda" class="btn btn-secondary px-5 mx-1">Salvar</button>
+                    @endif
+                    <button  class="btn px-5 btn-finalizar mx-1" onclick="confirmarFinalizacao()">
+                        Finalizar Venda
+                    </button>
                 </div>
+                <script>
+                    function confirmarFinalizacao() {
+                        Swal.fire({
+                            title: "Tem certeza?",
+                            text: "Deseja realmente finalizar esta venda?",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#28a745",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Sim, finalizar!"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                @this.finalizarVenda();
+                            }
+                        });
+                    }
+                </script>
             </div>
         </div>
     </div>
