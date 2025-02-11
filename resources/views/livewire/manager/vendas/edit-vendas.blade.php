@@ -114,7 +114,7 @@
                                         <td>{{ \Carbon\Carbon::parse($item['adicionado_em'])->format('d/m/Y H:i:s') }}</td>
                                         {{--<td>{{ $item['adicionado_em']->format('d/m/Y H:i:s') }}</td>--}}
                                         <td>
-                                            <button wire:click="removerProduto({{ $index }})">
+                                            <button wire:click="removerDoCarrinho({{ $item['produto']->id }})">
                                                 <i class="bi bi-trash3-fill text-danger"></i>
                                             </button>
                                         </td>
