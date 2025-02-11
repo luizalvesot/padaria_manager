@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nome_fantasia_fornecedor')->nullable();
             $table->boolean('status_fornecedor')->default(true);
             $table->string('telefone_celular_fornecedor', 15)->nullable();
-            $table->string('telefone_fixo_fornecedor', 15);
+            $table->string('telefone_fixo_fornecedor', 15)->nullable();
             $table->string('email_fornecedor', 100)->nullable();
             $table->string('cep_fornecedor', 15)->nullable();
             $table->string('cidade_fornecedor', 100);
