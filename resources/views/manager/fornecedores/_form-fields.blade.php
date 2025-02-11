@@ -156,7 +156,7 @@
         <!-- cidade do fornecedor -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="cidade_fornecedor" class="text-dark"><strong>Cidade</strong></label>
+                <label for="cidade_fornecedor" class="text-dark"><strong>Cidade</strong><strong class="text-danger"> *</strong></label>
                 <input type="text" class="form-control rounded py-1 @error('cidade_fornecedor') is-invalid @enderror" 
                     id="cidade_fornecedor" name="cidade_fornecedor" value="{{ $fornecedor->cidade_fornecedor ?? old('cidade_fornecedor') }}">
                 

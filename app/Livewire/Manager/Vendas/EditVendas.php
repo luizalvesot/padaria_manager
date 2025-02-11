@@ -141,6 +141,26 @@ class EditVendas extends Component
         }
     }
 
+    public function removerDoCarrinho($produtoId)
+    {
+        // Remove o item do banco de dados
+        AuxVenda::where('venda_id', $this->vendaId) // Ajuste conforme necessário
+            ->where('produto_id', $produtoId)
+            ->delete();
+
+        // Remove o item do array $carrinho
+        $this->carrinho = array_filter($this->carrinho, function ($item) use ($produtoId) {
+            return $item['produto']->id != $produtoId;
+        });
+
+        // Atualiza a página no Livewire
+        $this->dispatch('swal',
+            title: 'Produto removido',
+            text: 'O produto foi removido do carrinho!',
+            icon: 'success'
+        );
+    }
+
     public function salvarVenda()
     {
         // Verifica se o carrinho está vazio
@@ -160,6 +180,7 @@ class EditVendas extends Component
         } else {
             $this->statusPagamento = 'pago';
         }
+        
 
         $venda = VendaModel::find($this->vendaId); // busca a venda pelo ID
 
@@ -188,8 +209,8 @@ class EditVendas extends Component
                 if ($auxVenda) {
                     // Atualiza a quantidade e o preço
                     $auxVenda->update([
-                        'qtd_produto' => /*$auxVenda->qtd_produto + */$item['quantidade'],
-                        'preco'       => $item['preco'], // Atualiza o preço
+                        'qtd_produto'   => /*$auxVenda->qtd_produto + */$item['quantidade'],
+                        'preco'         => $item['preco'], // Atualiza o preço
                         'horario_venda' => Carbon::now(),
                         'tipo_venda'    => $this->tipoVenda,
                     ]);
