@@ -104,10 +104,10 @@
                                     @forelse ( $carrinho as $index => $item )
                                     <tr>
                                         <td class="text-center">
-                                            <input type="number" step="0.001" min="0" class="form-control input-qtd border rounded" 
+                                            <input type="number" min="0" max="1000" step="0.01" class="form-control input-qtd border rounded" 
                                                     wire:model.lazy="carrinho.{{ $index }}.quantidade" 
                                                     wire:change="atualizarQuantidade({{ $index }}, $event.target.value)" 
-                                                    min="1" value="{{ $item['quantidade'] }}">
+                                                    value="{{ $item['quantidade'] }}">
                                         </td>
                                         <td>{{ $item['produto']->descricao_produto }}</td>
                                         <td>R$ {{ number_format($item['preco'], 2, ',', '.') }}</td>
