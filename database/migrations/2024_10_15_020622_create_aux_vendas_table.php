@@ -25,7 +25,7 @@ return new class extends Migration
                     ->references('id')
                     ->on('clientes')
                     ->onDelete('restrict');
-            $table->integer('qtd_produto');
+            $table->decimal('qtd_produto', 10, 3);
             $table->decimal('preco', 10, 2);
             $table->dateTime('horario_venda');
             $table->string('tipo_venda', 30);
