@@ -16,6 +16,7 @@ use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\EscposImage;
 use Exception;
+use Illuminate\Support\Str;
 
 class Venda extends Component
 {
@@ -38,6 +39,7 @@ class Venda extends Component
     public $tipoVenda = '';
     public $horarioEncerramento;
     public $statusVenda = 'aberto';
+    public $produtoUniqueid = '';
 
     public function mount()
     {
@@ -104,7 +106,8 @@ class Venda extends Component
             'produto'       => $produto,
             'quantidade'    => 1,
             'preco'         => $produto->preco_venda_produto,
-            'adicionado_em' => Carbon::now()
+            'adicionado_em' => Carbon::now(),
+            'uniqueid'      => (string) Str::uuid()
         ];
 
         $this->atualizarTotal();
@@ -251,6 +254,7 @@ class Venda extends Component
                 'preco'         => $item['preco'],
                 'horario_venda' => Carbon::now(),
                 'tipo_venda'    => $this->tipoVenda,
+                'uniqueid'      => $item['uniqueid'],
             ]);
         }
 

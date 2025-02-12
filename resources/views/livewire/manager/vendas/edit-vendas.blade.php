@@ -104,7 +104,7 @@
                                     @forelse ( $carrinho as $index => $item )
                                     <tr>
                                         <td class="text-center">
-                                            <input type="number" class="form-control input-qtd border rounded" 
+                                            <input type="number" step="0.001" min="0" class="form-control input-qtd border rounded" 
                                                     wire:model.lazy="carrinho.{{ $index }}.quantidade" 
                                                     wire:change="atualizarQuantidade({{ $index }}, $event.target.value)" 
                                                     min="1" value="{{ $item['quantidade'] }}">
@@ -113,8 +113,9 @@
                                         <td>R$ {{ number_format($item['preco'], 2, ',', '.') }}</td>
                                         <td>{{ \Carbon\Carbon::parse($item['adicionado_em'])->format('d/m/Y H:i:s') }}</td>
                                         {{--<td>{{ $item['adicionado_em']->format('d/m/Y H:i:s') }}</td>--}}
+                                        <td><input type="hidden" name="uniqueid" value="{{$item['uniqueid']}}"></td>
                                         <td>
-                                            <button wire:click="removerDoCarrinho({{ $item['produto']->id }})">
+                                            <button wire:click="removerDoCarrinho({{ $item['produto']->id }}, '{{ $item['adicionado_em'] }}', '{{$item['uniqueid']}}')">
                                                 <i class="bi bi-trash3-fill text-danger"></i>
                                             </button>
                                         </td>

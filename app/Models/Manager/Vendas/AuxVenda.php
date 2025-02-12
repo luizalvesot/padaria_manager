@@ -23,6 +23,7 @@ class AuxVenda extends Model
         'preco',
         'horario_venda',
         'tipo_venda',
+        'uniqueid'
     ];
 
     public function venda()

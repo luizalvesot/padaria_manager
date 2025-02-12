@@ -16,6 +16,7 @@ use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\EscposImage;
 use Exception;
+use Illuminate\Support\Str;
 
 use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
 
@@ -40,7 +41,8 @@ class EditVendas extends Component
     public $clienteVenda;
     public $vendaId;
     public $statusVenda = 'aberto';
-    public $tipoVenda = 'normal';
+    public $tipoVenda = 'fiado';
+    public $produtoUniqueid = '';
 
     public function mount($vendaId, $clienteId)
     {
@@ -92,7 +94,8 @@ class EditVendas extends Component
             'produto'       => $produto,
             'quantidade'    => 1,
             'preco'         => $produto->preco_venda_produto,
-            'adicionado_em' => Carbon::now()
+            'adicionado_em' => Carbon::now(),
+            'uniqueid'      => (string) Str::uuid()
         ];
 
         $this->atualizarTotal();
@@ -141,17 +144,29 @@ class EditVendas extends Component
         }
     }
 
-    public function removerDoCarrinho($produtoId)
+    public function removerDoCarrinho($produtoId, $horarioVenda, $uniqueId)
     {
         // Remove o item do banco de dados
         AuxVenda::where('venda_id', $this->vendaId) // Ajuste conforme necessário
             ->where('produto_id', $produtoId)
+            ->where('horario_venda', $horarioVenda)
+            ->where('uniqueid', $uniqueId)
             ->delete();
 
         // Remove o item do array $carrinho
-        $this->carrinho = array_filter($this->carrinho, function ($item) use ($produtoId) {
-            return $item['produto']->id != $produtoId;
+        //$this->carrinho = array_filter($this->carrinho, function ($item) use ($produtoId, $uniqueId) {
+        //    return $item['produto']->id != $produtoId && $item['uniqueid'] != $uniqueId;
+        //});
+
+        $this->carrinho = array_filter($this->carrinho, function ($item) use ($produtoId, $uniqueId) {
+            return !(
+                isset($item['produto']->id, $item['uniqueid']) && 
+                $item['produto']->id == $produtoId && 
+                $item['uniqueid'] == $uniqueId
+            );
         });
+
+        $this->atualizarTotal();
 
         // Atualiza a página no Livewire
         $this->dispatch('swal',
@@ -173,7 +188,6 @@ class EditVendas extends Component
             );
         }
 
-        
         // Define o status do pagamento
         if ($this->saldoDevedor > 0) {
             $this->statusPagamento = 'devedor';
@@ -204,6 +218,8 @@ class EditVendas extends Component
                 // Verifica se já existe esse produto na venda
                 $auxVenda = AuxVenda::where('venda_id', $venda->id)
                     ->where('produto_id', $item['produto']->id)
+                    ->where('horario_venda', $item['adicionado_em'])
+                    ->where('uniqueid', $item['uniqueid'])
                     ->first();
 
                 if ($auxVenda) {
@@ -224,9 +240,11 @@ class EditVendas extends Component
                         'preco'         => $item['preco'],
                         'horario_venda' => Carbon::now(),
                         'tipo_venda'    => $this->tipoVenda,
+                        'uniqueid'      => (string) Str::uuid()
                     ]);
                 }
             }
+            $this->atualizarTotal();
             return $this->dispatch('swal',
                 title: 'Venda salva',
                 text: 'A venda foi salva corretamente!',
@@ -322,6 +340,7 @@ class EditVendas extends Component
                 'quantidade'    => $auxVenda->qtd_produto,
                 'preco'         => $auxVenda->preco,
                 'adicionado_em' => $auxVenda->horario_venda,
+                'uniqueid'      => $auxVenda->uniqueid
             ];
         })->toArray();
 
