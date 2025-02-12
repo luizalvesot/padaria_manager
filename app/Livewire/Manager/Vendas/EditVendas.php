@@ -361,6 +361,7 @@ class EditVendas extends Component
         try {
             //$ipImpressora = "192.168.1.100"; // Substitua pelo IP da impressora
             //$porta = 9100; // A maioria das impressoras térmicas usa essa porta
+<<<<<<< HEAD
 
             //$connector = new NetworkPrintConnector($ipImpressora, $porta);
 
@@ -372,6 +373,19 @@ class EditVendas extends Component
 
             $printer = new Printer($connector);
             /*$printer->text("Teste de impressão via rede\n");
+=======
+
+            //$connector = new NetworkPrintConnector($ipImpressora, $porta);
+
+	    // Nome da impressora (pode variar de acordo com o sistema operacional)
+            $nomeImpressora = "cupom"; // Nome configurado para a impressora no seu sistema
+
+            // Conexão com a impressora
+            $connector = new WindowsPrintConnector($nomeImpressora);
+
+            /*$printer = new Printer($connector);
+            $printer->text("Teste de impressão via rede\n");
+>>>>>>> ca20e70153739552530b1e0b08fec2421f525434
             $printer->cut();
             $printer->close();*/
             // Nome da impressora (pode variar de acordo com o sistema operacional)
