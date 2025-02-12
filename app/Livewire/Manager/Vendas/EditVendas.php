@@ -340,14 +340,21 @@ class EditVendas extends Component
 
         // Tente enviar o cupom para a impressora
         try {
-            $ipImpressora = "192.168.1.100"; // Substitua pelo IP da impressora
-            $porta = 9100; // A maioria das impressoras térmicas usa essa porta
+            //$ipImpressora = "192.168.1.100"; // Substitua pelo IP da impressora
+            //$porta = 9100; // A maioria das impressoras térmicas usa essa porta
 
-            $connector = new NetworkPrintConnector($ipImpressora, $porta);
+            //$connector = new NetworkPrintConnector($ipImpressora, $porta);
+
+	    // Nome da impressora (pode variar de acordo com o sistema operacional)
+            $nomeImpressora = "cupom"; // Nome configurado para a impressora no seu sistema
+
+            // Conexão com a impressora
+            $connector = new WindowsPrintConnector($nomeImpressora);
+
             $printer = new Printer($connector);
-            $printer->text("Teste de impressão via rede\n");
+            /*$printer->text("Teste de impressão via rede\n");
             $printer->cut();
-            $printer->close();
+            $printer->close();*/
             // Nome da impressora (pode variar de acordo com o sistema operacional)
             $nomeImpressora = "Cupom"; // Nome configurado para a impressora no seu sistema
 
